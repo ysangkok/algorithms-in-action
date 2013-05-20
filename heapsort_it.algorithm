@@ -1,0 +1,54 @@
+$~ HeapSort ()#0
+	$~ {
+		$Crea un Heap a partire da ArrayNonOrdinato#1#Il primo passo consiste nel creare una struttura dati nella quale l'elemento maggiore sia sempre accessibile in tempo costante.  L'heap è un albero in cui l'elemento maggiore si trova sempre nella radice.  L'albero è rappresentato da un array.
+			// Costruisci un Heap Bottom Up ();#1.0#La costruzione di un heap bottom up richiede un tempo O(n), ed è più efficiente dell'inserimento degli elementi nell'heap uno ad uno.  Si inizia mettendo gli elementi da ordinare in un array, senza considerazione per l'ordine.
+			$for k = partendo dall'ultimo non che non sia una foglia fino a k = radice#1.1#
+			for (k = N/2; k >= 1; k--) #1.1.1#1.1|Partendo dal penultimo livello dell'albero formiamo dei sottoheap di dimensioni 3.  L'operazione downheap assicura che la struttura sia un heap corretto.#Quando ci spostiamo al livello successivo, uniamo questi sottoheap in sottoheap più grandi di dimensione 7, e continuiamo così fino a che raggiungiamo la radice.#Per l'elemento k, l'operazione downheap su sottoheap con radice in k ha un costo di O(valore intero di log n/k).
+			@
+			$~{
+				$DownHeap (N,k)#1.2#Partendo dal penultimo livello dell'albero formiamo dei sottoheap di dimensioni 3.  L'operazione downheap assicura che la struttura sia un heap corretto.#Quando ci spostiamo al livello successivo, uniamo questi sottoheap in sottoheap più grandi di dimensione 7, e continuiamo così fino a che raggiungiamo la radice.#Per l'elemento k, l'operazione downheap su sottoheap con radice in k ha un costo di O(valore intero di log n/k).#Mentre downheap() opera su ogni singolo sottoalbero, non sappiamo se la radice del sottoalbero sia nella posizione corretta.  Sappiamo però che i sottoalberi che hanno per radice i figli di questo nodo sono già degli heap.
+					i = k;#1.2.1#Assegna l'indice i alla radice del sottoalbero che stiamo esaminando.
+					$~While (A[i] non è Foglia) {#1.2.2#Proseguiamo l'operazione di downheap fino a che il nodo che stiamo esaminando e i suoi figli sono in ordine corretto.  A quel punto possiamo fermarci, perchè sappiamo già che i sottoalberi sottostanti sono degli heap.
+						j = IndiceDelFiglioMaggiore (k);#1.2.1.2#E' sufficiente verificare il rapporto tra la radice e uno solo dei suoi figli - il maggiore.  Se il rapporto è quello corretto, allora anche il rapporto con il figlio più piccolo è quello corretto. Se invece il rapporto non è quello corretto, allora effettuiamo uno scambio, in modo che il figlio maggiore diventi il nodo genitore del figlio più piccolo e della radice.
+						if (A[i] >= A[j]) then break;#1.2.1.3#Proseguiamo l'operazione di downheap fino a che il nodo che stiamo esaminando e i suoi figli sono in ordine corretto.  A quel punto possiamo fermarci, perchè sappiamo già che i sottoalberi sottostanti sono degli heap.
+						scambia (A[i],A[j])#1.2.1.5#Se la condizione per essere un heap non è soddisfatta, perchè il figlio maggiore è maggiore della radice del sottoalbero, ristabiliamo la condizione degli heap scambiando il figlio maggiore con la radice.
+						i = j;#1.2.1.6#Continuiamo a percorrere l'albero verso il basso, controllando che la condizione per essere un heap sussista ed eventualmente ristabilendo l'ordine corretto.  Il sottoalbero in esame ha come radice l'elemento appena scambiato.
+					@
+					}#1.2.3#1.2|
+				@
+			@
+			}#1.a#1|
+		@
+		$ while (Non abbiamo Finito) #3#Controlliamo gli elementi uno ad uno, fino a che tutta la struttura risulta ordinata.
+		  	while (N > 1)#3.0#3|Controlliamo gli elementi uno ad uno, fino a che tutta la struttura risulta ordinata.
+		@
+		$~{
+				$Scambia (Elemento Maggiore nell'Heap, Elemento In Posizione N-esima);#3.1#Il primo passo nel ciclo è lo scambio dell'elemento maggiore, che è alla radine dell'albero (cioè nella prima posizione dell'array) con l'ultimo elemento dell'array (cioè dell'albero). 
+
+					Scambia (A[1],A[N]);#3.1.1#3.1|Il primo passo nel ciclo è lo scambio dell'elemento maggiore, che è alla radine dell'albero (cioè nella prima posizione dell'array) con l'ultimo elemento dell'array (cioè dell'albero).  L'elemento maggiore si trova ora nella posizione finale, e pertanto non verrà più mosso da ora in poi.
+				@
+				$Rimuove la Posizione N-esima da quella da Prendere in Considerazione;#3.2#L'elemento N-esimo si trova ora nella posizione finale, e pertanto non verrà più mosso da ora in poi.
+					N--;#3.2.1#3.2|L'elemento N-esimo si trova ora nella posizione finale, e pertanto non verrà più mosso da ora in poi.
+				@
+				$Ripristina l'Ordine dell'Heap;#3.3#Lo scambio ha fatto in modo che la condizione di sussistenza dell'heap non sia più valida, pertanto è necessario continuare ad operare delle modifiche fino a che l'albero non rispetti di nuovo la condizione di heap.
+					$Downheap (N,1)#3.3.1#Dopo lo scambio, la parte di heap ancora da considerare deve essere ricostruita. L'operazione di downheap fa in modo che la condizione di heap venga ristabilita in un tempo di O(log n).
+					i = 1;#3.3.1.1#Poichè abbiamo cambiato la radice, dobbiamo iniziare l'operazione di downheap a partire dalla cima dell'albero
+					$~While (A[i] non è Foglia) {#3.3.1.2#Proseguiamo l'operazione di downheap fino a che il nodo che stiamo esaminando e i suoi figli sono in ordine corretto.  A quel punto possiamo fermarci, perchè sappiamo già che i sottoalberi sottostanti sono degli heap.
+						j = IndiceDelFiglioMaggiore (i);#3.3.1.2.1#E' sufficiente verificare il rapporto tra la radice e uno solo dei suoi figli - il maggiore.  Se il rapporto è quello corretto, allora anche il rapporto con il figlio più piccolo è quello corretto. Se invece il rapporto non è quello corretto, allora effettuiamo uno scambio, in modo che il figlio maggiore diventi il nodo genitore del figlio più piccolo e della radice.
+						if (A[i] >= A[j]) then exit break;#3.3.1.2.2#Proseguiamo l'operazione di downheap fino a che il nodo che stiamo esaminando e i suoi figli sono in ordine corretto.  A quel punto possiamo fermarci, perchè sappiamo già che i sottoalberi sottostanti sono degli heap.
+						scambia (A[i],A[j])#3.3.1.2.4#Se la condizione per essere un heap non è soddisfatta, perchè il figlio maggiore è maggiore della radice del sottoalbero, ristabiliamo la condizione degli heap scambiando il figlio maggiore con la radice.
+						i = j;#3.3.1.2.5#Continuiamo a percorrere l'albero verso il basso, controllando che la condizione per essere un heap sussista ed eventualmente ristabilendo l'ordine corretto.  I sottoalbero in esame ha come radice l'elemento appena scambiato.
+					@
+					}#3.3.1.2.6#3.3.1|3.3|
+					@
+
+				@
+			@
+			}
+		@
+	return;#4#Finito!
+	@
+	}
+@
+
+

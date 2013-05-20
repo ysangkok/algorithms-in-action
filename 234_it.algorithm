@@ -1,0 +1,15 @@
+$~234-Tree#1
+$~{
+	// Build 234 Tree
+	$~Build 234 Tree () {#2
+		Initialize (234Tree)#2.1
+		$~While (Data Items)#2.2
+			Insert (234Tree,DataItem)#2.2a
+		@
+	@
+	}#2.3
+	// Search
+	Search (234Tree,DataItem)#4
+@
+}
+@	

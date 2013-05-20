@@ -1,0 +1,54 @@
+$~Distribution Counting ()#0#   
+$~{#999#  
+	$Registra i conteggi cumulativi#1#Viene effettuato un conteggio del numero di volte che ogni chiave compare nella lista.  Poi i conteggi vengono sommati per ottenere un valore cumulativo che rappresenta la posizione iniziale in cui una certa chiave dovrà trovarsi nell'array ordinato finale.
+		$Inizializza l'array dei conteggi#1.1#All'inizio tutti i conteggi valgono 0
+			$~for (j=0; j<dimensioneAlfabeto; j++) {#1.1.1#All'inizio tutti i conteggi valgono 0
+				conteggio[j] = 0;#1.1.1.1#All'inizio tutti i conteggi valgono 0
+			@
+			}#1.1.2#1.1|
+		@            
+		$Effettua il conteggio#1.2#Conta il numero di volte che ogni chiave compare nella lista.
+			$~for (i=0; i<N; i++) {#1.2.1#Effettua un passaggio nel file.  Per ogni elemento incrementa in contatore che conta il numero di volte che compare.  Il contatore è memorizzato in un array ausiliario, indicizzato per le chiavi.
+				conteggio[a[i]]++;#1.2.1.1#Effettua un passaggio nel file.  Per ogni elemento incrementa in contatore che conta il numero di volte che compare.  Il contatore è memorizzato in un array ausiliario, indicizzato per le chiavi.
+			@
+			}#1.2.2#1.2|
+		@
+		$Ricava i conteggi cumulativi#1.3#Per poter usare i contatori come indici dell'array finale, dobbiamo sommare i contatori nell'array dei conteggi.
+			$~for (j=1; j<dimensioneAlfabeto; j++) {#1.3.1#Per poter usare i contatori come indici dell'array finale, dobbiamo sommare i contatori dell'array dei conteggi.
+				conteggio[j] = conteggio[j-1] + conteggio[j];#1.3.1.1#.
+			@
+			}#1.3.2#1.3|
+		@
+		$Spostamento a destra#1.4#Convertiamo i conteggi cumulativi in indici dell'array spostando tutti i valori di una posizione a destra. Questo passo è necessario in quanto gli elementi con la prima chiave inizieranno alla posizione 0 dell'array, glielementi con la seconda chiave inizieranno alla posizione dell'array data dal numero di elementi con la prima chiave, ecc. 
+ 			$~for (j=dimensioneAlfabeto -1; j > 0; j--) {#1.4.1#Convertiamo i conteggi cumulativi in indici dell'array spostando tutti i valori di una posizione a destra. Questo passo è necessario in quanto gli elementi con la prima chiave inizieranno alla posizione 0 dell'array, gli elementi con la seconda chiave inizieranno alla posizione dell'array data dal numero di elementi con la prima chiave, ecc.
+				conteggio [j] = conteggio [j-1];#1.4.1.1#Convertiamo i conteggi cumulativi in indici dell'array spostando tutti i valori di una posizione a destra. Questo passo è necessario in quanto gli elementi con la prima chiave inizieranno alla posizione 0 dell'array, gli elementi con la seconda chiave inizieranno alla posizione dell'array data dal numero di elementi con la prima chiave, ecc.
+			@
+			}
+			conteggio [0] = 0;#1.4.2#1.4|1|La prima chiave inizierà alla posizione 0 nell'array ordinato.
+		@
+	@
+	$Per ogni elemento dell'array originale#2#Memorizziamo ogni elemento nella posizione finale, quella indicata dall'array dei conteggi.  
+		for(i=0; i < N; i++)#2.1#2|Memorizziamo ogni elemento nella posizione finale, quella indicata dall'array dei conteggi.  
+	@
+	$~{#3#
+			$Lo copia nella posizione finale indicata dall'array dei conteggi#3.1#Usa l'array dei conteggi come indice dell'array finale ordinato.
+			$Copia l'elemento nella posizione finale nell'array ausiliario#3.1.1#Usa l'array dei conteggi come indice dell'array finale ordinato.
+				b[conteggio[a[i]] = a[i];#3.1.1.1#3.1.1|3.1|a[i] è la chiave dell'elemento i-esimo; conteggio[a[i]] è il contatore cumulativo della chiave a[i] e rappresenta l'indice di a[i] nell'array finale ordinato.
+			@
+		@
+		$Aggiorna il contatore cumulativo#3.2#Il prossimo elemento con questa chiave andrà nella posizione successiva.
+			$increment conteggio[item]#3.2.1#Il prossimo elemento con questa chiave andrà nella posizione successiva.
+				conteggio[a[i]]++;#3.2.1.1#3.2.1|3.2|Il prossimo elemento con chiave a[i] verrà memorizzato nella posizione successiva, pertanto incrementiamo il contatore cumulativo della chiave a[i].
+			@
+		@
+	@
+	}#4#
+	$Copia l'array ausiliario nell'array originale#5#L'algoritmo Distribution counting fa uso di un array ausiliario in cui vengono copiato gli elementi dell'array originale. Alla fine è quindi necessario copiare di nuovo gli elementi nell'array originale.
+		$~for (i=0; i<N; i++) {#5.1#Fa una copia diretta, elemento per elemento.
+			a[i] = b[i];#5.1.1#Fa una copia diretta, elemento per elemento.
+		@
+		}#5.2#5|
+	@
+@
+}#6#
+@

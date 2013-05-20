@@ -1,0 +1,39 @@
+$~Visit(k, visit_seq, seq_num) #4
+$~{ 
+       Set distance_from_MST of k = 0#5
+
+       while (PQ not empty)#7
+       $~{#7.1
+           k = deleteMin(PQ)#7.2
+           $add edge to MST#7.3
+               $~if (k not in MST)#7.3.1
+                   add edge(k,parent of k) to MST#7.3.1.1
+                   $Record visit sequence of k#7.3.1.2
+                       visit_seq[k] = ++ seq_num#7.3.1.3#7.3|
+                   @
+               @
+           @
+           $for all vertices adjacent to k#7.4|7.5.7|
+                adj_node = adj_structure[k]#7.4.1
+                while(adj_node not null)#7.4.2#7.4|
+           @
+           $~{#7.5
+               $~if adj_node NOT_VISITED {#7.5.1
+                   $update distance and parent information#7.5.2
+                       if adj_node distance > weight(k,adj_node)#7.5.3
+                       $~{
+                           update adj_node distance#7.5.4
+                           Set parent of adj_node = k#7.5.6#7.5.2|
+                       @
+                       }
+                   @
+               @
+               }
+               \|advance adj_node#7.5.7
+           @
+           }
+       @
+       }
+@
+}#8
+@

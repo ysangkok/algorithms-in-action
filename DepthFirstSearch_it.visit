@@ -1,0 +1,25 @@
+$~Visit(k, visit_seq, seq_num) #4
+$~{
+       $Record sequence number of k #5
+              visit_seq[k] = ++seq_num #5.1#5|
+       @
+
+       $for all vertices adjacent to node #6|7.3|
+              adj_node = adj_structure[k] #6.1
+              while(adj_node not null)#6.2#6|
+       @
+       $~{
+              $if adjacent node not visited #7.1
+               if (visit_seq[adj_node] == 0) #7.1.1#7.1|
+              @
+              $~{
+		visit (adj_node, visit_seq,seq_num) #7.2
+	      @
+              }
+	      \|advance adj_node#7.3
+       @
+       }
+@
+}#8
+@
+

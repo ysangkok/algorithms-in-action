@@ -1,0 +1,44 @@
+$~BoyerMoore String Search (StringPattern p, StringText t)#0
+$~{
+	$Build Skip Table#1#Preprocess the pattern. Build a table with an entry for every character in the language used by the pattern and the text. The value of the entry for a character is used to determine how far to advance the pattern when there is a mismatch.
+		skipTable.size = size of 'alphabet'#1.1#The skip table has an entry for each character in the alphabet.
+		Initialise all skipTable's entries to p.length#1.2#The maximum skip is the length of the pattern. During preprocessing of the pattern, entries for characters in the pattern will be overwritten with smaller values.
+		for (j = 0; i < p.length; j++)#1.3#Move through the pattern character by character.
+		$~{
+			Entry to change is indexed by current character p[j]#1.4#Access the skip table entry indexed by the character.
+			Change skipTable's entry to p.length - j - 1;#1.4.1#Overwrite the existing value with a new one, which is calculated as the distance away from the end of the pattern.
+		@
+		}#1.5#1|
+	@
+	$Search text utilising the skip table#3#The search for the pattern takes place in a right-to-left fashion. The last character in the pattern is checked against the corresponding character in the text. Where there is a match, pointers in both the text and pattern are decremented. Where there is a mismatch, the character in the text is used as an index into the skip table. The value in the skip table is used to determine how far to advance the text pointer before resetting the pattern pointer to the end of the pattern, and restarting the matching cycle.
+		$Start checking from the end of the pattern#3.1#Search in Right-to-Left.
+			i = p.length() - 1;#3.1.1#Start by lining up the pattern at the leftmost end of the text, then set both text and pattern pointer to the end of the pattern. 
+			j = p.length() - 1;#3.1.2#3.1|Start by lining up the pattern at the leftmost end of the text, then set both text and pattern pointer to the end of the pattern.
+		@
+		while (j >= 0)#3.3#Loop until we get to the start of the pattern.
+		$~{
+			$~if text and pattern do not match#3.3.1#If mismatch, reset pointers.
+				$Skip ahead#3.3.1.1#If mismatch, reset pointers.
+					%[skip = maximum#3.3.1.2#If there is a mismatch, we skip ahead in the pattern. Taking the maximum of these values ensures that we always make forward progress.
+						skipTable[indexOf(t[i])];#3.3.1.3#If there is a mismatch, we skip ahead in the pattern. Taking the maximum of these values ensures that we always make forward progress.
+						p.length() - j;]%#3.3.1.5#If there is a mismatch, we skip ahead in the pattern. Taking the maximum of these values ensures that we always make forward progress.
+					i = i + skip;#3.3.1.6#Move the text pointer ahead.
+					$~if (i >= t.length())#3.3.1.7#If the text pointer is beyond the end of the text, the pattern is not found in the text.
+						return Not Found;#3.3.1.8#3|If the text pointer is beyond the end of the text, the pattern is not found in the text.
+					@
+					j = p.length() - 1;#3.3.1.9#3.3.1.1|Reset the pattern pointer to the end of the pattern.
+				@
+			@
+			$~else#3.3.2#If match, check the preceding character.
+				$Check next characters for match#3.3.2.1#If match, check the preceding character.
+					i--;#3.3.2.1.1#Decrement both text and pattern pointers to check the next character.			
+					j--;#3.3.2.1.2#3.3.2.1|Decrement both text and pattern pointers to check the next character.
+				@
+			@
+		@
+		}#3.3.3
+		return (found at i+1);#3.4#3|If we have matched at the leftmost position of the pattern, the pattern must appear in the text. Return the starting point of the pattern in the text.
+	@
+@
+}#4
+@

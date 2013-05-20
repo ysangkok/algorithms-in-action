@@ -1,0 +1,51 @@
+$~Quicksort ()|Quicksort (A, left, right)#1#Because the recursive calls will work on subarray, we need to specify the beginning and end of the array.
+$~{#2
+	$~if (right > left) {#3#Terminating condition
+		$Choose Partition P#4|1#There are various ways to choose the partition element.
+			P = A[right];#4.1#4|The simplest (but somewhat dangerous) method of chosing a partition element is to use the rightmost element of the array.
+		@
+		$Partition Array on P#5|1#This is where most of the work of Quicksort gets done.  We start with an unordered array, and finish with an array containing a partition element that is in its final place and two partitions, one containing only elements smaller than or equal to the partition element, and the other containing only elements larger than or equal to the partition element.
+			$Set index i at left of array, j at right;#5.1#The indices are set to either side of the array, so that we can do a preincrement and predecrement
+				i = left - 1;#5.1.1#Pointers are set to the ends of the array.  Because we will be doing a preincrement and predecrement, the i pointer is set to left-1.  The j pointer is set to right, rather than right+1, because the partition element is in a[right], and is not part of the partitioning.
+				j = right;#5.1.2#5.1|
+			@
+			$~Loop {#5.2#The stopping condition for the loop is a bit tricky.
+				$while (A[i] < P) keep incrementing i;#5.2.1#As long as elements on the left side are less than the partition elelent, we can leave them where they are. We stop on greater or equal elements.  While we could theoretically pass over equal elements, the algorithm is more robust for files that contain many equal elements if we also swap equal elements.
+					$~While (A[++i] < P){#5.2.1.1#5.2.1|As long as elements on the left side are less than the partition elelent, we can leave them where they are. We stop on greater or equal elements.  While we could theoretically pass over equal elements, the algorithm is more robust for files that contain many equal elements if we also swap equal elements.
+						// null body;#5.2.1.2
+					@
+					}
+				@
+				$while (A[j] > P) keep decrementing j;#5.2.2#As long as elements on the right side are greater than the partition elelent, we can leave them where they are. We stop of smaller or equal elements.  While we could theoretically pass over equal elements, the algorithm is more robust for files that contain many equal elements.
+					$~While (A[--j] > P){#5.2.2.1#5.2.2|As long as elements on the right side are greater than the partition elelent, we can leave them where they are. We stop of smaller or equal elements.  While we could theoretically pass over equal elements, the algorithm is more robust for files that contain many equal elements.
+						// null body;#5.2.2.2
+					@
+					}
+				@
+				$if (IndicesCross) exit Loop #5.2.3#The indices will cross once we have processed the entire array.
+					if (i >= j) exit Loop;#5.2.3.1#5.2.3|The indices will cross once we have processed the entire array.
+                                @
+				swap(A[i] , A[j]); // No more movements#5.2.5.1#5.2|Both indices have stopped, because they point to an element that needs to be on the other side of the partition.   By swapping the two elements pointed to, each will now be on the correct side.
+			@
+			}#5.3
+			$Put P in its final place#5.4
+				swap (A[i], A[right]);#5.4.1#5.4|5|3|
+			@
+		@
+		$Quicksort FirstHalf#6|1#The first recursive call often works on those elements smaller than the partition element.  However, the order does not matter, and some implementations might work on the largest partition first.
+			Quicksort (A, left, i - 1);#6.1#6|
+		@
+		$Quicksort SecondHalf#7|1#The second recursive call to Quicksort.
+			Quicksort (A, i + 1, right);#7.1#7|
+		@
+	@
+	}
+@
+}#8
+@
+
+
+
+
+
+

@@ -1,0 +1,59 @@
+$~//Search
+SplaySearch(SplayTree,Item)#5
+$~{
+	$Initialise#5.1
+		Ptr = SplayTree;#5.1.1#5.1|
+	@
+	$BST Search Item#5.2
+             	While (Ptr Not Null)#5.2.1
+             	$~{
+			$~if (Ptr->Item == Item) {#5.2.1.2#Item has been found.
+				FoundItem = Ptr->Item;#5.2.1.2.1#The found item cannot be returned immediately, since the splay operation must be done first, so it is saved.
+				break;#5.2.1.2.2#No need to search further.
+			@
+			}
+                 	Parent = Ptr;#5.2.1.1
+                 	$~if (less(DataItem, ptr->Item))#5.2.1.3
+                          	Ptr = Ptr->lchild;#5.2.1.3.1
+                        @
+                        $~else#5.2.1.4
+                             	Ptr = Ptr->rchild;#5.2.1.4.1
+                        @
+                @
+                }#5.2.2
+		$Adjust Pointers if Items not found#5.2.3#Every Splay Tree search is finished with a splay operation. If the item has been found, it is splayed to the Root. If the item has not been found, we set the pointer back to the last item on the search path, and splay it to the root.
+			if (Ptr is Null)#5.2.3.1
+			$~{
+				Node = Parent;#5.2.3.2
+				Parent = GrandParent;#5.2.3.3	
+			@
+			}#5.2.4#5.2.3|5.2|
+		@
+    	@
+	$Splay Found Item to Root#5.3#Once an item has been located, it is Splayed to the root, using a series of rotation. Use of the splay operation during search helps ensure that the items most frequently sought are near the Root, and that the tree is shallow.
+                $Perform double rotations#5.3.1
+                        while (Node not Root && Parent not Root)#5.3.1.1#Double rotation require that the node have a grand parent.
+                        $~{
+                                $Zig-Zig case#5.3.1.1.1#Node and Parent are both right (or left) children
+                                        Rotate Parent and GrandParent#5.3.1.1.2
+                                        Rotate Node and Parent#5.3.1.1.3#5.3.1.1.1|
+                                @
+                                $Zig-Zag case#5.3.1.1.4#If node is a right child, its parent is a left child, and vice versa.
+                                        Rotate Node and Parent#5.3.1.1.5
+                                        Rotate Node and GrandParent#5.3.1.1.6#5.3.1.1.4|
+                                @
+                        @
+                        }#5.3.1.2#5.3.1|
+                @
+                $Possibly execute one simple rotation#5.3.2
+                        if (Node not Root)#5.3.2.1#The final single rotation is only needed if the node is not at the root yet.
+                        $~{
+                                Rotate Node up#5.3.2.1.1
+                        @
+                        }#5.3.2.2#5.3.2|5.3|
+                @       
+	@
+	return FoundItem;#5.4
+@
+}
+@

@@ -1,0 +1,19 @@
+$~BuildTree() #4
+$~{#4.1 
+       while (PQ not empty)#5
+       $~{
+           edge = deleteMin(PQ)#5.2
+           if nodes of edge not connected already#5.3
+           $~{
+               add to MST(edge)#5.4
+               $~if (edges added == NumVertices -1){#5.6
+                   break from loop #5.6.1#5.6|
+               @
+               }
+           @
+           }
+       @       
+       }
+@
+}#6
+@

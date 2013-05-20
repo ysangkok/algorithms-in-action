@@ -1,0 +1,6 @@
+Top-down recursive mergesort breaks the array to be sorted in half,
+recursively sorts both halves, and merges the two sorted halves.
+The work of sorting is done in the merging function.
+
+The algorithm breaks the array in half, regardless of the order of the
+data, and so is O(n log n) and Big-Theta(n log n)

@@ -1,0 +1,23 @@
+$~SelectionSort#1#Selection Sort
+	$~{
+		// For each item in array
+		for (i=0; i < dataLength; i++)#2#For each position in the array, examine a subarray starting at this point.
+		$~{
+			minPosition = i;#3#Provisionally set the first position of this subarray to be the position containing the smallest element.
+			$ find position from currenta to end of smallest item#4#Find the smallest element in the subarray.
+				for (j = i+1; j < dataLength; j++)#5#Step through the subarray, one position at a time.
+				$~{
+					$~if (data[j] < data[minPosition])#6#Compare the value of the data item at the current position to the value of the minimum found so far.
+					@  
+						minPosition = j;#7#If the value of the item at the current position is smaller than the minimum so far, reset the minimum position to the current position. 
+				@
+				}#8#4| 
+			@
+			$Swap minimum with current#10#When the entire subarray has been processed, swap the smallest item with the item at the start of the subarray. Further subarrays will now only contain larger (or equal) items.
+				swap (data[i], data[minPosition]);#13#10|
+			@
+		@
+		}#14#
+	@
+    	}#15#1|
+@

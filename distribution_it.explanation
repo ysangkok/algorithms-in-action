@@ -1,0 +1,13 @@
+L'algoritmo Distribution counting, anche conosciuto come key-indexed counting, è un algoritmo di ordinamento
+che si basa sul fatto che i valori da ordinare (le chiavi) sono compresi in un preciso intervallo.  
+Se l'intervallo di valori distinti da ordinare è limitato da un fattore costante rispetto alla dimensione del file,
+il file può essere ordinato in tempo O(n).
+
+L'algoritmo conta il numero di volte che ogni singolo valore compare nell'array originale e lo memorizza in un 
+array ausiliario indicizzato dal valore stesso.
+Questi valori sono quindi convertiti in indici nell'array finale ordinato al fine di ottenere un valore cumulativo.  
+Gli elementi dell'array originale vengono quindi copiati in un nuovo array. La loro posizione è fornita dall'array ausiliario. 
+Infine i singoli elementi del nuovo array sono copiati nell'array originale.
+
+Si noti che il tempo lineare di ordinamento ha un costo dovuto allo spazio extra O(n) necessario per l'array temporaneo.
+

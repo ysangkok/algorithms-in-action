@@ -1,0 +1,13 @@
+La struttura dati SkipList si basa su una lista concantenata ordinata.  Collegamenti aggiuntivi  vengono aggiunti alla maggioranza dei nodi, e permettono alla ricerca di evitare l'analisi della maggior parte degli elementi della lista.  Una complessità eccezionalmente bassa viene raggiunta per le operazioni di ricerca e di inserimento, in senso probabilistico.  In particolare, mentre ogni singola ricerca ha un'elevata probabilità di essere efficiente, rimane comunque una probabilità non nulla che risulti invece molto inefficiente.  Nel caso degenere (comunque molto improbabile) in cui ogni nodo ha un solo collegamento, la ricerca degenera in una ricerca lineare attraverso una lista concatenata.
+
+Durante la ricerca, i collegamenti più lunghi (più alti) vengono seguiti per primi.  Appena la ricerca supera il punto in cui l'elemento che stiamo cercando dovrebbe trovarsi, si scende al livello successivo di collegamenti più corti.  Si continua con questo procedimento fino a che non si raggiunge il livello più basso in cui siamo sicuri che l'elemento (se presente) si troverà nel nodo successivo.
+
+Arrivati a questo punto, se si sta effettuando un ricerca verrò restituito il nodo trovato, oppure fallirà.  Se si sta invece effettuando un inserimento l'operazione di inserimento inserirà il nodo esattamente in questo punto.
+
+L'esecuzione di un inserimento ci richiede di allocare un nuovo nodo, dotato di un numero casuale di collegamenti.  Il numero di livelli a cui un nuovo nodo appartiene è determinato per mezzo di un ciclo il cui corpo aggiunge ad ogni iterazione un nuovo livello con una data probabilità (p=0.5 nell'esempio mostrato).  Il ciclo termina nel momento in cui non viene aggiunto un ulteriore livello.  Il nuovo nodo viene collegato quindi alla lista ad ognuno dei livelli che gli sono stati aggiunti.
+
+La natura probabilistica di una SkipList deriva dall'uso di una procedura casuale per determinare il numero di collegamenti che partono da ciascun nodo. Anche se risulta estremamente improbabile che ogni nodo abbia un solo collegamento, ciò può comunque accadere, e in questo caso la ricerca degenererebbe in una ricerca lineare.
+
+La probabilità di aggiungere un nuovo collegamento è un parametro che può essere modificato, e la sua modifica influenzerà la ricerca.  Minore la probabilità di aggiungere un nuovo livello, minore sarà il numero di collegamenti di alto livello. In termini operazionali questo significa che i salti saranno più lunghi ai livelli superiori, ma che di contro ci saranno più passaggi tra elementi adiacenti ai livelli inferiori.
+
+Riferimento: W. Pugh. Communications of the ACM - Vol 33, 668-676, 1990.

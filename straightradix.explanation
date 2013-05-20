@@ -1,0 +1,14 @@
+Straight radix sort, or Least Significant Digit-first radix sort, examines the bits of each element of a file from least significant bit to most significant.  It relies absolutely on the sorting algorithm being stable, so that the sort from previous passes is retained.
+
+
+Distribution counting, with two possibilities for each bit (0 or 1) is used for each bit.  The file is sorted, using distribution counting, according to the value of the least significant bit.  Then it is sorted again, according to the value of the second-least significant bit, etc. until finished.  It will be necessary to examine every bit.
+
+
+Each pass of distribution counting is O(n), and there will be b passes for keys of b bits.  If the keys are dense over the range, then b ~ logn, and we have an O(n logn) sort.
+
+A particulary useful variant of straight radix sort is to look at more than one bit at a time. 
+
+
+
+Straight radix sort does not suit variable length keys.
+

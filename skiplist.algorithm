@@ -1,0 +1,17 @@
+$~SkipList()#0
+{
+    $Initialise(SkipList)#2
+            Head = NewNode(Nil, MaxNodes);#2.1#2|
+    @
+    $~While(Data Items)#3
+            Insert(SkipList, DataItem)#3.1
+    @
+
+    //Search#4
+    SkipList-Search(SkipList, DataItem)#5
+
+    //Delete#6
+    SkipList-Delete(SkipList, DataItem)#7
+@
+}
+@

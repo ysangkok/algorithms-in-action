@@ -1,0 +1,6 @@
+$~SkipList-Rimuovi(SkipList, Elemento)#7.0
+$~{
+    Rimuove gli elementi dalla skiplist
+@
+}
+@

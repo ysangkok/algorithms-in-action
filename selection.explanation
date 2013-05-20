@@ -1,0 +1,5 @@
+Selection sort is the simplest of sorts. We go through the array, one item at a time, find the smallest element, and put this element into the first position.  We no longer consider this position.  We next consider the subarray starting at the next position, find the smallest element in this subarray, and put it at the beginning of this subarray (2nd position for the 2nd iteration).  
+Iterating through this procedure, we successively find the next smallest element, and put it into the next position in the array.
+There will be n-1 subarrays processed, and each has length n-i, so selection sort makes O(n^2) comparisons.
+Note that there are only O(n) swaps, so selection sort can be useful for arrays where the data items are large.
+Note also, that selection sort is not guaranteed to be stable.

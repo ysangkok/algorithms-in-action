@@ -1,0 +1,4 @@
+What is the average case complexity of quicksort?	O(n)|O(logn)|O(nlogn)|O(n^2)	3	y
+What is the worst case complexity of quicksort?	O(n)|O(logn)|O(nlogn)|O(n^2)#Happens if partition chooses the last element each time.	4	y
+Which of the following are acceptable partition methods?	use rightmost element|use leftmost element|use random element|use median of leftmost, center, and rightmost|use median of 3 random elements|use median of 5 random elements|use median of 7 random elements|use the 107th element#The array might be smaller than 108.|use the number 113#There may not be a key 113.	1|2|3|4|5|6|7	n
+Quicksort is good for real-time operations, because it is so fast.	True.#same explanation as for False|False.#O(nlogn) behavior cannot be guaranteed, so quicksort is`not the sort of choice for real-time operations.	2	y

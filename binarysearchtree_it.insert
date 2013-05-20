@@ -1,0 +1,29 @@
+$~Inserisci(AlberoBinarioRicerca, Elemento) #2.1.0#Inserisce l'elemento come un nuovo nodo dell'Albero Binario di Ricerca.
+$~{
+     $Inzializza Ptr e Genitore alla Radice#2.1.1#Inizia definendo dei puntatori al nodo Radice.
+          Ptr=Genitore=Radice;#2.1.1.1#2.1.1|Inizia definendo alcuni puntatori al nodo Radice. Il puntatore Ptr tiene traccia della posizione che stiamo analizzando. Il puntatore Genitore tiene traccia della posizione precedente in modo da poter poi facilmente inserire il nuovo elemento.
+     @
+     $Trova la Posizione per il Nuovo Elemento#2.1.2#Avanza il puntatore Ptr e il puntatore Genitore lungo i rami dell'albero fino a che il puntatore Ptr è null. Se il cammino seguito durante la ricerca è corretto allora il puntatore Genitore si trova nel punto in cui andrà inserito il nuovo elemento.  
+         While(Ptr Non è Null)#2.1.2.1
+         $~{
+              Genitore = Ptr;#2.1.2.1.1#Avanza il puntatore Genitore lungo il cammino seguito durante la ricerca.
+              $~if(minore(Elemento, Ptr->chiave))#2.1.2.1.2#Confronta l'Elemento e la chiave del nodo identificato dal puntatore Ptr.
+                  Ptr = Ptr->figlioS;#2.1.2.1.2.1#2.1.2.1|L'Elemento è minore della chiave, segue allora il figlio sinistro del nodo a cui siamo arrivati durante la ricerca.
+              @
+              $~else#2.1.2.1.3#L'Elemento è maggiore o uguale alla chiave del nodo identificato dal puntatore Ptr.
+                  Ptr = Ptr->figlioD;#2.1.2.1.3.1#2.1.2.1|L'Elemento è maggiore o uguale alla chiave, segue allora il figlio destro del nodo a cui siamo arrivati durante la ricerca.
+              @
+         @
+         }#2.1.2.2#2.1.2|
+     @
+     $Collega Nuovo Elemento#2.1.3#Crea un nuovo nodo la cui chiave è uguale al valore dell'Elemento e lo collega all'albero come figlio del puntatore Genitore controllando se il nuovo nodo dovrà essere il figlio sinistro o il figlio destro del nodo Genitore.
+         $~if(minore(Elemento, Genitore->chiave))#2.1.3.1#Confronta l'Elemento con la chiave del nodo identificato dal puntatore Genitore.
+             Genitore->figlioS = nuovoNodo(Elemento);#2.1.3.1.1#2.1.3|L'Elemento è minore, quindi dovrà essere il figlio sinistro di Genitore.
+         @
+         $~else#2.1.3.2#L'Elemento è maggiore o uguale alla chiave del noto identificato dal puntatore Genitore.
+             Genitore->figlioD = nuovoNodo(Elemento);#2.1.3.2.1#2.1.3|L'elemento è maggiore o uguale alla chiave del nodo identificato dal puntatore Genitore, quindi dovrà essere il figlio destro del nodo Genitore.
+         @
+     @
+@
+}
+@

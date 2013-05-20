@@ -1,0 +1,83 @@
+$~//Build Radix Trie
+Insert(Trie, Item)#3.0
+$~{
+	$Make new node if Trie is null#3.1#To start a trie, just put the data item in an external node.
+		$~if (Trie is null)#3.1.1#If we have nothing, we have to start a trie.
+			MakeExternalNodes(Item, Trie);#3.1.1.1#3.1|By putting the data in an external node.
+		@
+	@
+	$Initialisation#3.2#Set level to zero. When level is zero we will look at the first bit only.
+		Level = 0;#3.2.2#3.2|
+	@
+
+	$Find location for the new Item#3.3#Find the place to insert the new item, by looking at as many bits as are necessary.
+		while (Trie is at Internal Nodes)#3.3.1
+		$~{
+			$Branch based on bit of item at Level#3.3.1.2#Where the bit is 0, branch left. Where the bit is 1, branch right.
+				$~if (bit == 0)#3.3.1.2.1#Bit is 0, so branch left.
+					Trie = Trie->lchild;#3.3.1.2.1.1#3.3.1.2|
+				@
+				$~else // bit == 1#3.3.1.2.2#Bit is 1, so branch right.
+					Trie = Trie->rchild;#3.3.1.2.2.1#3.3.1.2|
+				@
+			@
+			Increment Level;#3.3.1.4#Go on to the next bit in the key and the next level in the trie.
+		@
+		}#3.3.2#3.3|
+	@
+	$Link new Item#3.4#Once we have found where to put the item, we need to link it into the existing trie. This will involve making at least one new internal node. Often we will also have to make one or more new internal nodes.
+		// Firstly check whether Trie is null
+		$~if (Trie is at null)#3.4.1
+			Make external node for Item;#3.4.1.1#3.4|Where we have come to a null node, we can just make a new external node, since there are no other external nodes along the search path.
+		@
+		$~else#3.4.2#Where we are at a leaf, there is an existing external node that shares leading bits with the item we need to insert. Therefore, we need to make sure we differentiate the new item from the item already in the trie.
+			if (not duplicate Item)#3.4.2.1#Radix methods do not handle duplicates well.
+			$~{
+				$Make Internal Nodes#3.4.2.1.1#We must have an internal node for each bit where the new key is the same as the existing one.
+					Replace existing node with new Internal Node;#3.5.1#First, we change the existing external node to an internal node.	
+					while (Bit of ItemKey at Level == Bit of TrieKey at Level)#3.5.2#We must have an internal node for each bit where the new key is the same as the existing one.
+					$~{
+						if (Bit at Level == 0)#3.5.2.2
+						$~{
+							Increment Level;#3.5.2.2.1							
+							Make Internal Node as Left Child;#3.5.2.2.2
+						@
+						} else // bit == 1#3.5.2.3
+						$~{
+							Increment Level;#3.5.2.3.1
+							Make Internal Node as Right Child;#3.5.2.3.2
+						@
+						}
+					@
+					}#3.5.3#3.4.2.1.1|
+				@
+				$Make External Nodes for TrieKey;#3.4.2.1.2#As soon as we have found a differentiating bit, we can make external nodes for the new item and for the old item. We position the items depending on which one has a 0 at that position and which has a 1.
+					$~if (Bit of TrieKey at level == 0)#3.4.2.1.2.1
+						MakeExternalNode on Left;#3.4.2.1.2.2#3.4.2.1.2|
+					@
+					$~else // bit == 1#3.4.2.1.2.3
+						MakeExternalNode on Right;#3.4.2.1.2.4#3.4.2.1.2|
+					@
+				@
+				$Make External Nodes for Item;#3.4.2.1.3#As soon as we have found a differentiating bit, we can make external nodes for the new item and for the old item. We position the items depending on which one has a 0 at that position and which has a 1.
+					$~if (Bit of Item at level == 0)#3.4.2.1.3.1
+						MakeExternalNode on Left;#3.4.2.1.3.2#3.4.2.1.3|
+					@
+					$~else // bit == 1#3.4.2.1.3.3
+						MakeExternalNode on Right;#3.4.2.1.3.4#3.4.2.1.3|
+					@
+				@
+				return;#3.4.2.1.4#3.4|
+			@	
+			}
+			$~else#3.4.2.2#Radix methods do not handle duplicates well.
+				return DUPLICATE_ITEM;#3.4.2.2.1#3.4|Radix methods do not handle duplicates well
+			@
+		@
+	@
+@
+}
+#
+#
+@
+@

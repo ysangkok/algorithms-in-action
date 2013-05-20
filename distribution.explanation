@@ -1,0 +1,15 @@
+Distribution counting, or key-indexed counting, is a sorting method
+that relies on the keys being within a known range.  If the range of
+distinct key values is within a constant factor of the file size, the
+file can be sorted in O(n) time.
+
+The number of items with each distinct key is counted, and stored in
+an auxiliary array, indexed by the key itself.  These numbers are
+turned into indices into the final, sorted array, by adding, to give
+a cumulative total.  Then the items in the unsorted array are copied to
+a new array, their new location given by the entry in the auxiliary
+array.  At the end, the items are copied back to the original array.
+
+Note that one cost of the linear sorting time is that the algorithm 
+requires O(n) extra space for the temporary array.
+

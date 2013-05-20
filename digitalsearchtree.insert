@@ -1,0 +1,31 @@
+$~Insert(DigSearchTree, DataItem)#3.1.0
+    $Initialise Ptr to Root#3.1.0.1#We start the search at the root of the Tree.
+	Ptr = Root#3.1.0.1.1#3.1.0.1|We start the search at the root of the Tree.
+    @
+    $Find Location for New DataItem#3.1.1
+        While(Ptr Not Null)#3.1.1.1#Items must be inserted as leaves. The search path is followed until a null node indicates that a leaf can be added.
+        $~{#3.1.1.2
+            Parent = Ptr;#3.1.1.2.1#Trailing pointers is needed for linking in the new item.
+            $Check if duplicate key#3.1.1.2.10#Digital search trees cannot store items with duplicate keys
+                $~if(Ptr->Key = DataItem)#3.1.1.2.10.1#3.1.1.2.10|Digital search trees cannot store items with duplicate keys
+                    Duplicate = True;#3.1.1.2.10.1.1#Digital search trees cannot store items with duplicate keys
+                    return;#3.1.1.2.10.1.2#Digital search trees cannot store items with duplicate keys
+                @
+            @
+            Decrement Bit;#3.1.1.2.4#At each level, look at the next bit until we get to a leaf.
+
+            if(DataItem Bit == 0) Ptr = Ptr->lchild;#3.1.1.2.2#At each level of the tree, go left if the current bit is zero, or right if the bit is one.
+            else Ptr = Ptr->rchild;#3.1.1.2.3#At each level of the tree, go left if the current bit is zero, or right if the bit is one.
+
+        @
+        }#3.1.1.3#3.1.1|
+    @
+    $Link New DataItem into Tree#3.1.2
+        $~if(DataItem Bit == 0)#3.1.2.1#We link the new node to the parent according to whether the bit in this level is zero of one.
+            Parent->lchild = newnode(DataItem);#3.1.2.1.1#3.1.2|We link the new node to the parent according to whether the bit in this level is zero of one.
+        @
+        $~else#3.1.2.2#We link the new node to the parent according to whether the bit in this level is zero of one.
+            Parent->rchild = newnode(DataItem);#3.1.2.2.1#3.1.2|We link the new node to the parent according to whether the bit in this level is zero of one.
+        @
+    @
+@

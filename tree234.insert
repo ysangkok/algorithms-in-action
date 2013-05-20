@@ -1,0 +1,72 @@
+$~Insert(234Tree,DataItem)#3
+$~{
+	$Initialise#3.1#Insert into the designated 234Tree.
+		Ptr = root;#3.1.1#3.1|Start our search for the insertion point at the root of the tree.
+	@
+	$Find Insertion Point#3.2.0#Find the right place to insert the new item.
+		$~While(Ptr Not Null) {#3.2#Always insert at leaves, so advance until a null pointer is reached.
+			$~if (4-Nodes)#3.2.1#A top-down 234 tree splits every 4-Node found in the search path. In this way, we avoid ever having to propogate splits upwards.
+				Split 4-Nodes;#3.2.1.1#A top-down 234 tree splits every 4-Node found in the search path. In this way, we avoid ever having to propogate splits upwards.
+			@
+			$Advance Ptrs#3.2.2#Follow the next link along the path
+				$2-Node case#3.2.2.1#The details of advancing pointers during search are different for the different kinds of nodes.
+					$~if (less(DataItem, Ptr->Item))#3.2.2.1.1#The 2-Node case is like a Binary Search Tree.
+						Ptr = Ptr->lchild;#3.2.2.1.1.1#3.2.2|3.2.2.1|The 2-Node case is like a Binary Search Tree.
+					@ 
+					$~else#3.2.2.1.2#The 2-Node case is like a Binary Search Tree.
+						Ptr = Ptr->rchild;#3.2.2.1.2.1#3.2.2|3.2.2.1|The 2-Node case is like a Binary Search Tree.
+					@
+				@
+				$3-Node case#3.2.2.2#The details of advancing pointers during search are different for the different kinds of nodes.
+					$~if (less(DataItem, LeftNode->Item))#3.2.2.2.1#If item is less than leftmost node key, follow the left pointer.
+						Ptr = Ptr->lchild;#3.2.2.2.1.1#3.2.2|3.2.2.2|If item is less than leftmost node key, follow the left pointer.
+					@
+					$~else if (less(DataItem, RightNode->Item))#3.2.2.2.2#If item is more than the leftmost node key, and less than rightmost node key, follow the middle pointer.
+						Ptr = Ptr->mchild;#3.2.2.2.2.1#3.2.2|3.2.2.2|If item is more than the leftmost node key, and less than rightmost node key, follow the middle pointer.
+					@
+					$~else#3.2.2.2.3#If item is greater than the rightmost node key, follow the right pointer.
+						Ptr = Ptr->rchild;#3.2.2.2.3.1#3.2.2|3.2.2.2|If item is greater than the rightmost node key, follow the right pointer.
+					@
+				@
+				$4-Node case#3.2.2.3#The details of advancing pointers during search are different for the different kinds of nodes.
+					$~if (less(DataItem, LeftNode->Item))#3.2.2.3.1#If item is less than leftmost node key, follow the left pointer.
+						Ptr = Ptr->lchild;#3.2.2.3.1.1#3.2.2|3.2.2.3|If item is less than leftmost node key, follow the left pointer.
+					@
+					$~else if (less(DataItem, MiddleNode->Item))#3.2.2.3.2#If item is between lefmost node and the middle node key, follow the middle-left pointer.
+						Ptr = Ptr->mlchild;#3.2.2.3.2.1#3.2.2|3.2.2.3|If item is between lefmost node and the middle node key, follow the middle-left pointer.
+					@
+					$~else if (less(DataItem, RightNode->Item))#3.2.2.3.3#If item is between the middle node key and the right node key, follow the middle-right pointer.
+						Ptr = Ptr->mrchild;#3.2.2.3.3.1#3.2.2|3.2.2.3|If item is between the middle node key and the right node key, follow the middle-right pointer.
+					@
+					$~else#3.2.2.3.4#If item is greater than the rightmost node key, follow the right pointer.
+						Ptr = Ptr->rchild;#3.2.2.3.4.1#3.2.2|3.2.2.3|If item is greater than the rightmost node key, follow the right pointer.
+					@
+				@	
+			@
+		@
+		}#3.2.0.1#3.2.0|	 
+	@
+	$Link New DataItem#3.3#Make the link that connects the new item into the tree.	
+		$if(ExistingNode is 2-Node) Make 3-Node#3.3.1#New data is always inserted with an already existing leaf, making 2-Nodes to 3-Nodes, and 3-Nodes to 4-Nodes. There are no 4-Nodes, as we will have split them in the preceeding.
+			$~if(less(DataItem, ExistingNode->Key))#3.3.1.1#Order the keys correct in the new 3-Node.
+				Add Node to left;#3.3.1.1.1#3.3|3.3.1|Order the keys correct in the new 3-Node.
+			@
+			$~else#3.3.1.2#Order the keys correct in the new 3-Node.
+				Add Node to right;#3.3.1.2.1#3.3|3.3.1|Order the keys correct in the new 3-Node.
+			@
+		@
+		$if(ExistingNode is 3-Node) Make 4-Node#3.3.2#New data is always inserted with an already existing leaf, making 2-Nodes to 3-Nodes, and 3-Nodes to 4-Nodes. There are no 4-Nodes, as we will have split them in the preceeding.
+			$~if(less(DataItem, ExistingNode->LeftNode->Key))#3.3.2.1#Order the keys correct in the new 4-Node.
+				Add Node to left;#3.3.2.1.1#3.3|3.3.2|Order the keys correct in the new 4-Node.
+			@
+			$~else if (less(DataItem, ExistingNode->RightNode->Key))#3.3.2.2#Order the keys correct in the new 4-Node.
+				Add Node to centre;#3.3.2.2.1#3.3|3.3.2|Order the keys correct in the new 4-Node.
+			@
+			$~else#3.3.2.3#Order the keys correct in the new 4-Node.
+				Add Node to right;#3.3.2.3.1#3.3|3.3.2|Order the keys correct in the new 4-Node.
+			@
+		@
+	@
+@
+}#3.5
+@

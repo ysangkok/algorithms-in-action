@@ -1,0 +1,10 @@
+$~Splay Tree
+    //Build A Splay Tree
+    Initialize(SplayTree)#1a
+    $~While(Data Items)#2a
+        SplayInsert(STree, Item)#3a
+    @
+
+    //Search#4a
+    SplaySearch(STree, Item)#5a
+@

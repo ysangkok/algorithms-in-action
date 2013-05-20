@@ -1,0 +1,10 @@
+$~Radix Multi Trie
+    //Build Radix Trie
+    Initialize(RadixTree)#1a#Initialise Trie
+    $~While(Data Items)#2a#Insert items into the trie, one by one
+        Insert(Trie, DataItem, RootLevel)#3a#Insert items into the trie, one by one
+    @
+
+    //Search#4a
+    RadixTrie-Search(Trie, DataItem, RootLevel)#5a#Search for items in the trie, based on their key
+@

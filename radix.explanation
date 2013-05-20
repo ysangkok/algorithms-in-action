@@ -1,0 +1,5 @@
+Radix exchange sort, sometimes called binary quicksort, is a variant of quicksort.
+
+The first partitioning is done around the most significant bit, and subsequent partitions around the next most significant bits.
+
+If every bit is examined, then for keys of b bits, there would be O(b) passes, with each pass examining every item, leading to a time complexity of O(bn).  In practice, where keys are sparsely and randomly distributed, the file will be sorted after log n passes, for another O(n log n) sort.

@@ -1,0 +1,11 @@
+$~#
+// Search
+Search(PatriciaTree,DataItem)
+$~{
+    $KeyFound = SearchKey(PatriciaTree,DataItem,-1)| #5.1s|5.1s
+        KeyFound = SearchKey(PatriciaTree,DataItem,-1)#5.1.1#5.1s|
+    @
+    if(KeyFound==DataItemKey) return KeyFound#5.2#As with all radix methods, the returned key shares a prefix with the search key, but is not necessarily the same. Therefore at the end of the search, a full key comparison is performed to see if we have found the key we were searching for.
+    else return NotFound#5.3#As with all radix methods, the returned key shares a prefix with the search key, but is not necessarily the same. Therefore at the end of the search, a full key comparison is performed to see if we have found the key we were searching for.
+@
+}

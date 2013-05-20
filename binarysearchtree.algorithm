@@ -1,0 +1,19 @@
+$~BiarySearchTree()#0
+{
+    //Build Binary Search Tree
+    $Initialize(BinSearchTree)#1
+        Root = newnode(DataItem);#1.1#1|Get a pointer to the root.
+    @
+    $~While(Data Items)#2
+         Insert(BinSearchTree, DataItem)#2.1s#Put DataItem into its correct place in the BinSearchTree. Correct place is determined by its key and by the keys of item already in the tree.
+    @
+
+    //Search
+    BST-Search(BinSearchTree, DataItem)#3s#See if DataItem can be found in the BinSearchTree
+    @
+
+    //Delete
+    BST-Delete(BinSearchTree, DataItem)#4s#Take DataItem out of the BinSearchTree
+    @
+@
+}

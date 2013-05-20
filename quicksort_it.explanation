@@ -1,0 +1,7 @@
+Quicksort è un veloce algoritmo di ricerca generale che non fa uso di strutture ausiliarie.  Funziona partizionando ricorsivamente un array intorno a un elemento pivot: una partizione contiene elementi minori o uguali all'elemento pivot, e l'altra partizione contiene elementi maggiori o uguali all'elemento pivot.
+
+In media, ogni partizione conterrà metà dell'array, risultando in un ordinamento di complessità O(n log n).  Tuttavia, nel caso peggiore, ad ogni passo una delle due partizioni potrebbe essere vuota, risultando pertanto in un ordinamento di complessità O(n^2).
+
+Ci sono vari modi di scegliere l'elemento pivot.  Ad esempio, si potrebbe scegliere sempre l'elemento più a destra.  Nel caso di un array già ordinato o quasi ordinato, il comportamento dell'algoritmo risulterà in questo caso O(n^2).  Un modo alternativo è quello di scegliere un elemento a caso, o di scegliere sempre l'elemento mediano di tre elementi; i tre elementi potrebbero essere scelti a caso, o potrebbero essere scelti ad esempio come il primo elemento dell'array, quello di mezzo e l'ultimo elemento dell'array.
+
+Quicksort non è stabile.

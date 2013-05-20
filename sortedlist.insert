@@ -1,0 +1,21 @@
+$~Insert(SortedList, DataItem)#3.1.0
+$~{
+    $Initialise Ptrs to Head#3.1.1
+            Ptr = TailPtr = Head;#3.1.1.1#3.1.1|
+    @
+    $Find Location for New DataItem#3.1.2
+           While((Ptr Not Null) && (Ptr->Data < DataItem))#3.1.2.1
+           $~{#3.1.2.2
+               TailPtr = Ptr;#3.1.2.2.1
+               Ptr = Ptr->Next;#3.1.2.2.2
+           @
+           }#3.1.2.3#3.1.2|
+    @
+    $Link New DataItem into SortedList#3.1.3
+           NewNode(DataItem);#3.1.3.1
+           NewNode->Next = Ptr;#3.1.3.2
+           TailPtr->Next = NewNode;#3.1.3.3#3.1.3|
+    @
+@
+}
+@

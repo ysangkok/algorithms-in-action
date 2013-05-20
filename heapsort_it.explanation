@@ -1,0 +1,11 @@
+Heapsort è un algoritmo di ordinamento generale "sul posto", ossia che ordina gli elementi dell'array originale senza fare uso di array ausiliari.  La complessità garantita è O(n*logn).
+
+L'idea generale è quella di individuare l'elemento maggiore di tutti, posizionarlo alla fine, cioè nella sua posizione finale, e quindi individuare nuovamente negli elementi ancora da ordinare il maggiore, posizionarlo in penultima posizione, cioè nella sua posizione finale e continuare fino a che tutti gli elementi sono stati ordinati.
+
+Quello che ci occorre è pertanto una struttura dati in cui possiamo velocemente individuare l'elemento più grande.
+
+Questa struttura è chiamata Heap. In questa implementazione gestiremo un heap massimo. Un heap massimo è un albero che soddisfa la condizione di heap massimo: un albero completo è un heap massimo se il valore di tutti i nodi figlio è minore o uguale a quello del nodo genitore.  Ciò significa che l'elemento più grande si trova pertanto nella radice. Useremo un albero binario, ma gli heap con k figli funzionano altrettanto bene.
+
+Diversamente da altri alberi, l'heap non usa puntatori.  Gli elementi sono memorizzati in un array.  Le relazioni genitore-figlio sono implicite nell'array, i figli del nodo A[i] sono infatti gli elementi A[2i] (figlio sinistro) e A[2i+1] (figlio destro). La radice dell'albero è A[1].
+    
+

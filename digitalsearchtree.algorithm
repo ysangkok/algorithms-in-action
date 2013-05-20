@@ -1,0 +1,18 @@
+$~Digital Search Tree
+    //Build Digital Search Tree#1
+    $Initialize(DigSearchTree)#2
+	Make new node for root;#2.0
+        Root = DigSearchTree;#2.1
+        Bit = MostSigBit + 1;#2.2#2|
+    @
+    
+    $~While(Data Items)#3
+        Insert(DigSearchTree, DataItem)#3.1
+    @
+    
+    //Search#4
+    DigTree-Search(DigSearchTree, DataItem)#5
+    
+    //Delete#6
+    DigTree-Delete(DigSearchTree, DataItem)#7
+@

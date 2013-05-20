@@ -1,0 +1,37 @@
+$~ShellSort(A,Size)#1#Shellsort works on a similar principle to insertion sort, but uses larger jumps in the initial stages.  For successively smaller values of h, we h-sort the file.  That is, we end up with h interleaved subfiles.  Within each subfile, all elements h positions away from each other are in sorted order relative to each other.
+$~{#2
+        $Pick starting value for h#3#The choice of starting h and decrement are somewhat arbitrary.
+        // One way:#4#The choice of starting h and decrement are somewhat arbitrary.
+        for(h=1;h<=Size/9;h=3*h+1);#5#3|The choice of starting h and decrement are somewhat arbitrary.
+        @
+        $for progressively smaller h#6#Starting with some h, we h-sort the file with progressivley smaller values of h.  Successive h-values should be relatively prime.  The last value for h is 1, leading to (linear) insertion sort of an almost-sorted file.
+        for(starting h;h>0;h/=3)#7#6|Starting with some h, we h-sort the file with progressivley smaller values of h.  Successive h-values should be relatively prime.  The last value for h is 1, leading to (linear) insertion sort of an almost-sorted file.
+        @
+        $~{
+                $Insertion-like sort using step of size h#7.2#Each pass at h-sorting is like insertion sort, except that we look at elements h positions away from each other, instead of one position away
+		// Another way: linear pass through file#7.3#starting with the h-th element of the array, and going linearly through the file, we will check that the element is is the proper place, relative to all those in its h-subfile, that is all those that are both to its left and separated by multiples of h positions
+		for(i = h; i < Size; i++)#7.4#starting with the h-th element of the array, and going linearly through the file, we will check that the element is is the proper place, relative to all those in its h-subfile, that is all those that are both to its left and separated by multiples of h positions
+                $~{
+			$insert A[i] into h-SubFile#7.4.1
+			$~{#7.4.2
+				val = A[i];#7.4.2.1#Save the value being looked at, so we can move elements into its place if required 
+				j=i;#7.4.2.2#We are looking only at elements before the current one
+				while(A[j-h]>val && j>=h)#7.4.2.3#All elements that are greater than the element being inserted will have to be moved rightward so that the current element can be inserted. We deal with each subfile independently, and so move in jumps of size h.
+				$~{#7.4.2.4
+					A[j] = A[j-h];#7.4.2.4.1#Because each subfile is being processed independently, we move each element h places rightward.
+					j-=h;#7.4.2.4.2#Because each subfile is being processed independently, we examine only element separated by h places.
+				@
+				}#7.4.2.5
+				A[j]=val;#7.4.2.6#7.4.1|When we stop moving elements, all elements larger than the current one are positioned to the right of the pointer and all smaller than the current elements are to the left. So we insert the current element into its correct place.
+			@
+			}#7.4.3
+			@
+		@
+                }#7.5#7.2|
+		@
+       @
+       }
+@
+}#8
+@
+

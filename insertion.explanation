@@ -1,0 +1,12 @@
+Insertion sort is a simple sorting method. Its complexity is O(n^2). In practice, for sorted or nearly sorted files, it runs in linear (O(n)) time.
+
+The process of sorting using insertion sort is similar to the way some people organize a hand of cards.  We make sure that the first two elements of the file are in the correct relative order, that is the smaller occurs before the larger.  Then we look at the third element in the file, and place it in its correct place in the subfile of two, giving us a subfile of three correctly ordered elements, etc.
+
+Operationally, at each iteration of the enclosing loop, we examing element E and compare it with the element immediately preceding.  If E is larger than (or the same as) its immediate predecessor, then they are in the correct relative order.  Since we also know that the preceding subfile is already in sorted order, we need not make any data movements, and can move on to the next iteration of the loop.  However, if E is smaller than its predecessor P, we swap  E and P, compare E with its new immediate predecessor, etc.
+
+
+In practice, the swaps are implemented as half-swaps:  the value of E is saved, and any preceeding elements that are smaller than E are moved up on place.  When we stop moving elements right, E is replaced in the ``hole''.
+
+
+Insertion sort is particularly useful for sorting data that is already nearly sorted, because it runs in linear time on sorted or nearly-sorted data.
+

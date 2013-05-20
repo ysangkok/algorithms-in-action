@@ -1,0 +1,3 @@
+The multiway radix trie is a variant of the radix trie data structure for searching.  Instead of looking at one bit at a time, as in the radix trie, data items are inserted into the multiway radix trie based on the pattern of a few bits.  The number of bits examined at a time can be varied, and will determine the branching pattern of the trie.
+For example, if d = 2 bits, then there will be 4 branches at each level in the trie: 00, 01, 10, 11.  Then, at the next level, we will look at the next d bits.  As with the radix trie, we usually get to the end of the path before all the bits in the key have been examined. The depth of the tree is less than for the radix trie, where each bit is examined separately, and takes up a level in the tree.
+

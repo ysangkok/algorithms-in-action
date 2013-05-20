@@ -1,0 +1,72 @@
+~Mergesort ()|Mergesort (A)#1#
+$~{#2
+	$~if (lunghezza(A) > 1) {#3#Condizione di terminazione, in quanto un array di lunghezza pari a uno è (ovviamente) ordinato.
+			$Divide A in due metà#4#
+			n = lunghezza(A);#4.1#
+			B = nuovo array di lunghezza n/2;#4.2#
+			C = nuovo array di lunghezza n/2;#4.3#
+			$Copia la prima metà di A in B#4.4#
+				i = 0;#4.4.1#
+				while (i < lunghezza(B))#4.4.2#
+				{
+					B[i] = A[i]; #4.4.2.1#
+					i = i + 1; #4.4.2.2#
+				}
+			@
+			$Copia la seconda metà di A in C#4.5#
+				i = lunghezza(B);#4.5.1#
+				k = 0;#4.5.2#
+				while (k < lunghezza(C))#4.5.3#
+				{	
+					C[k] = A[i];#4.5.3.1#
+					i = i + 1;#4.5.3.2#
+					k = k + 1;#4.5.3.3#
+				}
+			@
+                    @
+                    $Esegue Mergesort sulla Prima Metà#5#La prima chiamata ricorsiva funziona su B.
+                        Mergesort (B);#5.1#La prima chiamata ricorsiva funziona su B.
+                    @
+                    $Esegue Mergesort sulla Seconda Metà#6#La seconda chiamata ricorsiva funziona su C.
+                        Mergesort (C);#6.1#La seconda chiamata ricorsiva funziona su C.
+                    @$Riunifica le due Metà#7#Fonde la prima metà ordinata con la seconda metà ordinata.
+                         i = 0; j = 0; k = 0; #7.1#Inizializza gli indici
+                        $Fonde#7.1.1#Mentre ci troviamo all'interno di entrambi gli array
+                            while (i < lunghezza(B) e j < lunghezza(C)) #7.1.1.1#Mentre siamo all'interno dei limiti di B e C
+                            {
+                                $Confronta e Copia #7.1.1.1.1#Confronta un elemento di B con un elemento di C e copia in A il più piccolo dei due elementi 
+					if ( B[i] <= C[j] ) #7.1.1.1.1.1#Confronta un elemento della prima metà con un elemento della seconda metà
+					{ A[k] = B[i]; i = i + 1; }#7.1.1.1.1.2#Poichè il primo è minore o uguale al secondo copia l'elemento della prima metà in A e incrementa l'indice dell'array che contiene la prima metà (B).
+                                        else
+					{ A[k] = C[j]; j = j + 1; }#7.1.1.1.1.3#Poichè il primo è maggiore del secondo copia l'elemento della seconda metà in A e incrementa l'indice dell'array che contiene la seconda metà (C).
+				@
+                                k = k + 1; #7.1.1.1.2#Incrementa l'indice dell'array ordinato (A)
+                            }
+                            $Copia gli elementi restanti nell'arraay ordinato#7.1.1.2#
+			if (i == p) #7.1.1.2.1#Se la fusione è terminata perchè B è più corto di C 
+				$Copia il Resto di C alla Fine di A#7.1.1.2.2#Copia il resto di C alla fine di A (C è già ordinato)
+					while ( j < lunghezza(C) )#7.1.1.2.2.1#
+					{
+						A[k] = C[j];#7.1.1.2.3#
+						k = k + 1;#7.1.1.2.4#
+						j = j + 1;#7.1.1.2.5#
+					}
+				@
+			else #7.1.1.2.6#Altrimenti la fusione è terminata perchè C è iù corto di B
+				$Copia il Resto di B alla Fine di A#7.1.1.2.7#Copia il resto di B alla fine di A (B è già ordinato)
+					while ( i < lunghezza(B) )#7.1.1.2.8#
+					{
+					    A[k] = B[i];#7.1.1.2.9#
+					    k = k + 1;#7.1.1.2.10#
+					    i = i + 1;#7.1.1.2.11#
+					}
+				@
+			@
+                        @
+                    @
+	} @
+     @
+@
+
+
+

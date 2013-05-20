@@ -1,0 +1,18 @@
+$~SortedList()#0
+{
+    //Build Sorted List#1
+    $Initialise(SortedList)#2
+            Head = newnode(DataItem);#2.1#2|
+    @
+    $~While(Data Items)#3
+            Insert(SortedList, DataItem)#3.1
+    @
+
+    //Search#4
+    SortedList-Search(SortedList, DataItem)#5
+
+    //Delete#6
+    SortedList-Delete(SortedList, DataItem)#7
+@
+}
+@

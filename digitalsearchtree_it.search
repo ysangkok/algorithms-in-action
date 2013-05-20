@@ -1,0 +1,28 @@
+$~DigTree-Search(DigSearchTree, DataItem)#5.0
+$~{
+    $Initialize Ptrs to DigSearchTree#5.1
+        Ptr = DigSearchTree;#5.1.1#5.1|
+    @
+    While (Ptr Not Null)#5.2#We may have to follow the search path to a null node.
+    $~{
+        $~if(Ptr->Key==DataItem)#5.2.1#At each level of the search tree, the key of the tree node item must be compared with the key of the search item.
+            return FOUND;#5.2.1.1#If the keys are the same, the item has been found in the Tree.
+        @
+        else#5.2.2#As long as the item has not been found, we continue along the search path.
+        $Advance Ptr#5.2.2.1#As long as the item has not been found, we continue along the search path.
+            {
+            $~if(DataItem Bit == 0)#5.2.2.1.1#At each level, go left if the current bit is zero, right if it is one.
+                Ptr = Ptr->lchild#5.2.2.1.1.1#5.2.2.1|At each level, go left if the current bit is zero, right if it is one.
+            @
+            $~else#5.2.2.1.2#At each level, go left if the current bit is zero, right if it is one.
+                Ptr = Ptr->rchild#5.2.2.1.2.1#5.2.2.1|At each level, go left if the current bit is zero, right if it is one.
+            @
+            Decrement Bit;#5.2.2.1.3#Set the bit to the next one, in readiness in the next advance.
+            }
+        @
+    @
+    }
+    return NOTFOUND#5.3#If we reach the end of the search path, and none of the node keys along the path have been the same as the search key, then the item is not in the Tree.
+@
+}
+@

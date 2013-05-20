@@ -1,0 +1,6 @@
+L'Algoritmo Mergesort ricorsivo dall'alto in basso spezza in due metà l'array da ordinare,
+riordina ricorsivamente entrambe le metà, e fonde insieme le due metà ordinate.
+L'ordinamento vero e proprio avviene nella funzione che fonde le due metà.
+
+L'algoritmo spezza l'array a metà, senza riguardo per l'ordine dei dati, 
+pertanto è di complessità O(n log n) sia nel caso migliore che nel caso peggiore.

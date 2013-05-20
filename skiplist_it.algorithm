@@ -1,0 +1,17 @@
+$~SkipList()#0
+{
+    $Inizializza(SkipList)#2
+            Testa = nuovonodo(Nil, MassimoNumeroNodi);#2.1#2|
+    @
+    $~While(Ci sono Elementi)#3
+            Inserisci(SkipList, Elemento)#3.1
+    @
+
+    //Ricerca#4
+    SkipList-Cerca(SkipList, Elemento)#5
+
+    //Rimozione#6
+    SkipList-Rimuovi(SkipList, Elemento)#7
+@
+}
+@

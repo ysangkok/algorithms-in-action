@@ -1,0 +1,71 @@
+$~//Insert#Empty#Insertion in this implementation of the splay tree is top-down and recursive. There are successive calls to the insert function, followed by edge rotation.
+SplayInsert(STree,Data)#3#Insertion in this implementation of the splay tree is top-down and recursive. There are successive calls to the insert function, followed by edge rotation.
+$~{
+    $~if(Splaytree is empty)#3.1#Where the splay tree is empty, we make a new splay tree containing the item and return it. Note that this is also the base case that terminates a series of recursive calls.
+        Return new SplayTree containing Data#3.1.1#Where the splay tree is empty, we make a new splay tree containing the item and return it. Note that this is also the base case that terminates a series of recursive calls.
+    @
+    switch (path to grandchild)#3.2#The search for the correct insertion point proceeds two levels at a time. A recursive call is made to insert into the splay tree rooted at the grand child of the current splay tree. After the return from the recursive call, a double rotation is performed. Where there is only a child, not a grand child, a simple rotation is performed.
+    $~{
+        $case TERMINAL: // No grandchild#TERMINAL|TERMINAL.4#The terminal case will happen at the last level of a tree with an odd number of levels. The current tree has a child, but no grand child.
+        $Insert child and Single Rotate#TERMINAL.1|TERMINAL.3.1|TERMINAL.3.2|TERMINAL.3.3#Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+        if (dataItem < SplayTreeData) // Single left#TERMINAL.2#Search proceeds as for binary search tree, that is where the search key is less than the key at the root we go left, otherwise we go right. The direction of the rotation is adjusted accordingly. So that the child accessed is the root of the subtree bing returned.
+        $~{
+            SplayT LeftChild = New SplayTree containing Data#TERMINAL.2.1#Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+            SplayT = RotateRight(SplayT)#TERMINAL.2.2#Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+            Return SplayT#TERMINAL.2.3#Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+        @
+        }
+        else // Single right#TERMINAL.3#Search proceeds as for binary search tree, that is where the search key is less than the key at the root we go left, otherwise we go right. The direction of the rotation is adjusted accordingly. So that the child accessed is the root of the subtree bing returned.
+        @
+        $~{
+            SplayT Child = New SplayTree containing Data|SplayT RightChild = New SplayTree containing Data#TERMINAL.3.1#TERMINAL|Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+            Rotate(SplayT)|SplayT = RotateRight(SplayT)#TERMINAL.3.2#Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+            Return Rotated sub-tree|Return SplayT#TERMINAL.3.3#Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+        @
+        @
+        Insert child and Single Rotate|}#TERMINAL.4#Where the current tree has a child, but no grand child, insertion is made into the tree rooted at the child, and a single rotation is performed on return from the recursive call to insert. The rotated subtree is then returned. Note that the root of the rotated subtree is the child of the root of the un-rotated subtree.
+        $case ZIG-ZIG:#ZIGZIG|ZIGZIG.4#In the Zig Zig case, the links to child and grand child run in the same direction, ie either child in right child of parent AND grandchild is right child of child, or vice verse.
+        $Insert Grand Child and Double Rotate#ZIGZIG.1|ZIGZIG.3.1|ZIGZIG.3.2|ZIGZIG.3.3|ZIGZIG.3.4#In both the zigzag and zigzig case, a recursive call is made to insert the new item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+        if (dataItem < SplayTreeData) // left-left#ZIGZIG.2#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be inserted and keys in the search tree. The direction of the rotation that follow the next recursive call to insert are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        $~{
+            SplayT LL GrandChild = Insert(SplayT LL GrandChild, Data)#ZIGZIG.2.1#Recursive call to insert into splay tree rooted at grand child of current splay tree.
+            SplayT = RotateRight(SplayT)#ZIGZIG.2.2#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            SplayT = RotateRight(SplayT)#ZIGZIG.2.3#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            Return SplayT#ZIGZIG.2.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        }
+        else#ZIGZIG.3#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be inserted and keys in the search tree. The direction of the rotation that follow the next recursive call to insert are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        @
+        $~{
+            SplayT GrandChild = Insert(SplayT GrandChild, Data)|SplayT RR GrandChild = Insert(SplayT RR GrandChild, Data)#ZIGZIG.3.1#ZIGZIG|Recursive call to insert into splay tree rooted at grand child of current splay tree.
+            Rotate (SplayT)|SplayT = RotateLeft(SplayT)#ZIGZIG.3.2#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            Rotate (SplayT Child)|SplayT = RotateLeft(SplayT)#ZIGZIG.3.3#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            Return Rotated sub-tree|return SplayT#ZIGZIG.3.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        @
+        Insert Grand Child and Double Rotate|}#ZIGZIG.4#In both the zigzag and zigzig case, a recursive call is made to insert the new item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+        $case ZIG-ZAG:#ZIGZAG|ZIGZAG.4#In the Zig-Zag case, the links to the child and the grand child run in opposite direction. ie either the child is right child of the parent and the grand child is the left child of the child, or vice versa.
+        $Insert Grand Child and Double Rotate#ZIGZAG.1|ZIGZAG.3.1|ZIGZAG.3.2|ZIGZAG.3.3|ZIGZAG.3.4#In both the zigzag and zigzig case, a recursive call is made to insert the new item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+        if (dataItem < SplayTreeData) // left-right#ZIGZAG.2#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be inserted and keys in the search tree. The direction of the rotation that follow the next recursive call to insert are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        $~{
+            SplayT LR GrandChild = Insert(SplayT LR GrandChild, Data)#ZIGZAG.2.1#Recursive call to insert into splay tree rooted at grand child of current splay tree.
+            SplayT LeftChild = RotateLeft(SplayT LeftChild)#ZIGZAG.2.2#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            SplayT = RotateRight(SplayT)#ZIGZAG.2.3#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            return SplayT#ZIGZAG.2.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        }
+        else#ZIGZAG.3#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be inserted and keys in the search tree. The direction of the rotation that follow the next recursive call to insert are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        @
+        $~{
+            SplayT GrandChild = Insert(SplayT GrandChild, Data)|SplayT RL GrandChild = Insert(SplayT RL GrandChild, Data)#ZIGZAG.3.1#ZIGZAG|Recursive call to insert into splay tree rooted at grand child of current splay tree.
+            Rotate(SplayT Child)|SplayT RightChild = RotateRight(SplayT RightChild)#ZIGZAG.3.2#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            Rotate(SplayT)|SplayT = RotateLeft(SplayT)#ZIGZAG.3.3#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            Return Rotated sub-tree|Return SplayT#ZIGZAG.3.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        @
+        Insert Grand Child and Double Rotate|}#ZIGZAG.4#In both the zigzag and zigzig case, a recursive call is made to insert the new item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+    @
+    }
+@
+}
+@

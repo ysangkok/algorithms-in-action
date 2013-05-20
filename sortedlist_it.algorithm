@@ -1,0 +1,18 @@
+$~ListaOrdinata()#0
+{
+    //Costruisce una Lista Ordinata#1
+    $Inizializza(ListaOrdinata)#2
+            Testa = nuovonodo(Elemento);#2.1#2|
+    @
+    $~While(Ci sono Elementi)#3
+            Inserisci(ListaOrdinata, Elemento)#3.1
+    @
+
+    //Ricerca#4
+    ListaOrdinata-Cerca(ListaOrdinata, Elemento)#5
+
+    //Rimozione#6
+    ListaOrdinata-Rimuovi(ListaOrdinata, Elemento)#7
+@
+}
+@

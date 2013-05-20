@@ -1,0 +1,67 @@
+$~//Build Radix Trie
+Insert(Trie, Item, Level)#3
+$~{
+    $~if(Trie is NULL)#3.1#If we have nothing, we have to start a trie.
+        Link in New ExternalNode(item) and Return NewNode#3.1.1#By putting the data in an external node. Note that this is also the base case that terminates a series of recursive calls.
+    @
+    if(Trie is Leaf)#3.2#Where we are at a leaf, there is an existing external node that shares leading bits with the item we need to insert. Therefore, we need to make sure we differentiate the new item from the item already in the trie.
+    $~{
+        $If (Not Duplicate Key)#3.2.1|3.2.2#Radix methods do not handle duplicates well.
+            $~if(Key of Trie == Key of Item)#3.2.1.1#Radix methods do not handle duplicates well.
+                Return (ALREADY_IN_TRIE)#3.2.1.1.1#Radix methods do not handle duplicates well.
+            @
+        @
+        $~{|else {#3.2.2#Where we are at a leaf, there is an existing external node that shares leading bits with the item we need to insert. Therefore, we need to make sure we differentiate the new item from the item already in the trie.
+            $Make One or more Internal Nodes#3.2.2.1a1#We must have an internal node for each bit where the new key is the same as the existing one.
+                MakeInternalNode(Item, Trie, Level + 1)#3.2.2.2#3.2.2.1a|We must have an internal node for each bit where the new key is the same as the existing one.
+            @
+            Return InternalNode#3.2.2.3#We must have an internal node for each bit where the new key is the same as the existing one.
+        @
+        }
+    @
+    }
+
+    $~If(Trie is NonLeaf)#3.3#We navigate through the existing radix trie, searching for the correct place to insert the new item. Navigation is recursive here, and continue until we reach a leaf. At each successive level we examine the next bit in the key branching left if it is 0, and right if it is 1.
+        $Branch to Level+1, based on Item bit at Level#3.3.1#We navigate through the existing radix trie, searching for the correct place to insert the new item. Navigation is recursive here, and continue until we reach a leaf. At each successive level we examine the next bit in the key branching left if it is 0, and right if it is 1.
+            $~if(Bit of Item at Level ==0)#3.3.1.1#We navigate through the existing radix trie, searching for the correct place to insert the new item. Navigation is recursive here, and continue until we reach a leaf. At each successive level we examine the next bit in the key branching left if it is 0, and right if it is 1.
+                Trie Left Child = Insert(Trie Left Child, Item, Level + 1)#3.3.1.1.1#We navigate through the existing radix trie, searching for the correct place to insert the new item. Navigation is recursive here, and continue until we reach a leaf. At each successive level we examine the next bit in the key branching left if it is 0, and right if it is 1.
+            @
+            $~else // bit is 1#3.3.1.2#We navigate through the existing radix trie, searching for the correct place to insert the new item. Navigation is recursive here, and continue until we reach a leaf. At each successive level we examine the next bit in the key branching left if it is 0, and right if it is 1.
+                Trie Right Child = Insert(Trie Right Child, Item, Level + 1)#3.3.1.2.1#We navigate through the existing radix trie, searching for the correct place to insert the new item. Navigation is recursive here, and continue until we reach a leaf. At each successive level we examine the next bit in the key branching left if it is 0, and right if it is 1.
+            @
+        @
+    @
+    Return Trie#3.4
+@
+}
+  #
+  #
+MakeInternalNode(Item, Trie, Level)#3.2.2.1
+$~{
+    Make New Internal Node #1111#At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+    $~if(Trie Key and Item Key differ at bit at Level)#3.2.2.1.1#At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+        $Link Trie and Item to Internal Node#3.2.2.1.1.2#At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+            $~if(Item Key bit at Level == 1)#3.2.2.1.1.2.1#At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+                InternalNode Left Child = Trie#3.2.2.1.1.2.1.1.1#At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+                InternalNode Right Child = Item#3.2.2.1.1.2.1.1.2#3.2.2.1.1.2|At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+            @
+            $~if(Item Key bit at Level == 0)#3.2.2.1.1.2.2#At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+                InternalNode Left Child = Item#3.2.2.1.1.2.2.1.1#At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+                InternalNode Right Child = Trie#3.2.2.1.1.2.2.1.2#3.2.2.1.1.2|At the first bit (and level) where the key of the item being inserted differs from the key that was already in the trie, we can link them into the trie as the children (external nodes) of the current internal node. The relative position of the children depend on their values for the current bit.
+            @
+        @
+    @
+    $~else#3.2.2.1.2#If the current bit is the same for the key being inserted and the key that was in the trie, it is necessary to make another internal node, continuing to search for the first bit where they differ. For each bit where the two keys are the same, we have anotherlevel in the trie. 
+        $Make another Internal Node at Level + 1#3.2.2.1.2.1#If the current bit is the same for the key being inserted and the key that was in the trie, it is necessary to make another internal node, continuing to search for the first bit where they differ. For each bit where the two keys are the same, we have anotherlevel in the trie.
+            $~if(Item Key bit at Level == 0)#3.2.2.1.2.1.1#If the current bit is the same for the key being inserted and the key that was in the trie, it is necessary to make another internal node, continuing to search for the first bit where they differ. For each bit where the two keys are the same, we have anotherlevel in the trie.
+                Internal Node Left Child = MakeInternalNode(Item,Trie,Level+1)#3.2.2.1.2.1.1.1.1#3.2.2.1.2.1|If the current bit is the same for the key being inserted and the key that was in the trie, it is necessary to make another internal node, continuing to search for the first bit where they differ. For each bit where the two keys are the same, we have anotherlevel in the trie.
+            @
+            $~if(Item Key bit at Level == 1)#3.2.2.1.2.1.2#If the current bit is the same for the key being inserted and the key that was in the trie, it is necessary to make another internal node, continuing to search for the first bit where they differ. For each bit where the two keys are the same, we have anotherlevel in the trie.
+                Internal Node Right Child = MakeInternalNode(Item,Trie,Level+1)#3.2.2.1.2.1.2.1.1#3.2.2.1.2.1|If the current bit is the same for the key being inserted and the key that was in the trie, it is necessary to make another internal node, continuing to search for the first bit where they differ. For each bit where the two keys are the same, we have anotherlevel in the trie.
+            @
+        @
+    @
+    return Internal Node#3.2.2.1.3
+@
+}
+@

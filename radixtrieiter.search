@@ -1,0 +1,31 @@
+$~//Search Radix Trie
+    Trie-Search(Trie, Item)#5
+    $~{
+      	$Follow Search Path#5.1#Find the search path by following the bits, from most significant, going left where the bit is 0, and right where it is 1.
+		Level = 0;#5.1.1
+		while (Trie not at Leaf)#5.1.2#Loop until we are at a leaf.
+		$~{
+			$Branch based on bit of item at Level#5.1.2.1#If the bit is 0, branch left. Branch right otherwise.
+				$~if (Bit of Item at Level == 0)#5.1.2.1.1#Bit is 0, so branch left.
+					Trie = Trie->lchild;#5.1.2.1.1.1#5.1.2.1|
+				@
+				$~else#5.1.2.1.2#Bit is 1, so branch right.
+					Trie = Trie->rchild;#5.1.2.1.2.1#5.1.2.1|
+				@
+			@
+			Increment Level;#5.1.2.2#Then, go to the next bit and the next level of the trie.
+		@
+		}#5.1.3#5.1|
+
+	@
+ 	$Compare Keys at end of Search Path#5.2#We need to compare keys when we find a leaf. We are certain that the bits we have looked at are in the search key, but we do not know whether the bits we have not examined are the same.
+		$~if (ItemKey == TrieKey)#5.2.1#The key at the leaf is what we are looking for, so we have a successful search.
+			return FOUND;#5.2.1.1#5.2|
+		@
+		$~else#5.2.2#The key at the leaf is not what we are looking for, so we know that the item we are searching is not in the trie, unsuccessful search.
+			return NOT_FOUND;#5.2.2.1#5.2|
+		@
+	@
+    @
+    }
+@

@@ -1,0 +1,10 @@
+$~Patricia Tree
+    //Build Patricia Tree
+    Initialize(PatriciaTree)#1
+    $~While(Data Items)#2
+        Insert(PatriciaTree, DataItem)#3s
+    @
+
+    //Search#4
+    PatTree-Search(PatriciaTree, DataItem)#5s
+@

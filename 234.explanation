@@ -1,0 +1,16 @@
+The 2-3-4 tree is a balanced tree that guarantees an upper bound on the length of the search path.   
+
+In the 2-3-4 tree, nodes can contain one key (plus links to 2 children, so called 2-nodes), two keys (3-nodes), or three keys (4-nodes).  New items are always inserted into already existing leaf nodes, converting 2-nodes to 3-nodes, and 3-nodes to 4-nodes. Nodes are not allowed to have more than 4 children.  So when we need to add to a 4-node, we split it, forming 2 2-nodes before the addition.
+
+During a split operation, the middle key of the 4-node is passed upwards to the key above, and the left and right keys form 2-nodes. The 4 children of the former 4-node stay associated with the left and right keys, so the operation is entirely local.
+
+In a bottom-up 2-3-4 tree, splits may have to propagate upwards, since a key from a 4-node might be passed upwards to a parent 4-node, which in turn would have to be split, etc.
+
+The top-down 2-3-4 tree shown in this animation avoids the problem of propagating splits upward, by splitting all 4-nodes as we encounter them on the search path.  Thus, any node we may have to split will already have a parent that is either a 2-node or a 3-node.
+
+Note that any individual insertion does not make the tree grow in depth, since it is added to an existing node.  Most splits do not make the tree grow in depth either.  The only time a tree grows in depth is when the root is split. 
+
+In the worst case of a 2-3-4 tree, all nodes are 2-nodes, and we have a balanced binary tree, with depth log(2) N.  
+
+An important variant of the 2-3-4 tree is the B-tree, a data structure commonly used in large databases.  In the B-tree, each nodes has between a and b children, where a and b are typically quite large. This results in a wice, flat tree, where the search path is quite short. A 2-3-4 tree is a B-tree where a=2 and b=4.
+

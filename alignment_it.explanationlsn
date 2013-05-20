@@ -1,0 +1,22 @@
+Local alignment of two strings finds the best contiguous alignment of the two strings, allowing the ends before and after the alignment to go free in both strings.  Local similarity must use similarity measures, rather than distance measures, since we do not know in advance the length of the local alignment.
+
+As with global similarity using similarity measures, we are looking for the alignment with the highest similarity between the two strings.  Similarity would obviously be highest where there is a match, which would be a positive number, and lower for mismatches and indels.
+
+Unlike the global similarity situation, we need to allow ends anywhere to go free.  Thus we start with a slight modification of the dynamic programming algorithm used for global similarity.  We cost as before, but when we maximize the ith position, we also allow restarts, by not allowing the similarity to fall below 0.  Thus the similarity value of the local alignment at the ith position is the value of the best alignment up to the (i-1)th position, plus the maximum of the the following FOUR situations: the score for aligning the next position in both sequences (matching or mismatching); the score for aligning the next position in string1 against a deletion, or blank, in string2; the score for adding the next position in string2 as an insertion against a blank in string1; or 0 (where the similarity would otherwise become negative).  As in global similarity, the best value is then inserted into the table of costs.  In addition, a pointer to the previous best position indicates whether the current best position was achieved by a match/mismatch, an insertion, or a deletion.  Where the best score can be achieved in more than one way, multiple pointers are kept.
+
+After we have filled in the table, we get the best local similarity by checking the table for the highest value.  Unlike before, this value does not have to be at the end of the strings.  To get the best alignment or alignments, we trace back using the pointers that were inserted during the build process.
+
+Where gaps are modelled as a gap cost plus an extension cost, instead of simply as a series of indels, the algorithm gets much more complicated.  Three arrays must be kept, to keep track of the cost depending on whether we just ended in a no-gap situation, a gap in string1 or a gap in string2.  This is necessary, because a following gap would be costed differently, depending on the previous situation.
+
+
+
+
+
+
+
+
+
+
+
+
+

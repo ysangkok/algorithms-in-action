@@ -1,0 +1,11 @@
+Bottom-up mergesort starts by merging successive elements into (sorted)
+subarrays of size 2, then merges the subarrays of size 2 into subarrays of
+size 4, etc, doubling the size of the subarray each time, until the array is
+sorted.  Where the data are not powers of 2, the leftover subarray may have
+to wait for another iteration before it is merged.
+
+The algorithm has the same working no matter what the order of the
+data.  Because the data are sorted by successive doubling in size of
+the small subarrays, the algorithms in O( n log n) and also Big-Theta
+(n log n).
+

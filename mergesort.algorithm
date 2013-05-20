@@ -1,0 +1,74 @@
+$~Mergesort ()|Mergesort (A)#1#
+$~{#2
+	$~if (length(A) > 1) {#3#Terminating condition since an array of length one is already (trivally) sorted.
+			$Split A into halves#4#
+			n = length(A);#4.1#
+			B = new array of length ceil(n/2);#4.2#
+			C = new array of length floor(n/2);#4.3#
+			$Copy first half of A into B#4.4#
+				i = 0;#4.4.1#
+				while (i < length(B))#4.4.2#
+				{
+					B[i] = A[i]; #4.4.2.1#
+					i = i + 1; #4.4.2.2#
+				}
+			@
+			$Copy second half of A into C#4.5#
+				i = length(B);#4.5.1#
+				k = 0;#4.5.2#
+				while (k < length(C))#4.5.3#
+				{	
+					C[k] = A[i];#4.5.3.1#
+					i = i + 1;#4.5.3.2#
+					k = k + 1;#4.5.3.3#
+				}
+			@
+                    @
+                    $Mergesort FirstHalf#5#The first recursive call works on B.
+                        Mergesort (B);#5.1#
+                    @
+                    $Mergesort SecondHalf#6#The second recursive call works on C. 
+                        Mergesort (C);#6.1#
+                    @$Merge Halves#7#Merge the sorted first half into the sorted second half
+                         i = 0; j = 0; k = 0; #7.1#Initialize indices
+                        $Merge #7.1.1#While we are within the bounds of both arrays
+                            while (i < length(B) and j < length(C)) #7.1.1.1#While within bounds of B and C
+                            {
+                                $Compare and Copy #7.1.1.1.1#Compare an element from B and an element from C and copy the smaller element into A 
+					if ( B[i] <= C[j] ) #7.1.1.1.1.1#Compare element from first half to element from second half
+					{ A[k] = B[i];#7.1.1.1.1.2#First is less than or equal to second so copy first half element into A and increment index into the first half array (B).
+					i = i + 1; }#7.1.1.1.1.2b#Increment index into B
+                                        else
+					{ A[k] = C[j];#7.1.1.1.1.3#Second is less than first so copy second half element into A and increment index into the second half array (C)
+					j = j + 1; }#7.1.1.1.1.3c#Increment index into C
+				@
+                                k = k + 1; #7.1.1.1.2#Increment index into sorted array (A)
+                            }
+                            $Copy leftovers into sorted array#7.1.1.2#
+			if (i == p) #7.1.1.2.1#If merge terminated because B is of a smaller length than C 
+				$Copy rest of C into end of A#7.1.1.2.2#Copy the rest of C into the end of A (C is already sorted)
+					while ( j < length(C) )#7.1.1.2.2.1#
+					{
+						A[k] = C[j];#7.1.1.2.3#
+						k = k + 1;#7.1.1.2.4#
+						j = j + 1;#7.1.1.2.5#
+					}
+				@
+			else #7.1.1.2.6#Else merge terminated because C is of a smaller length than B
+				$Copy rest of B into end of A#7.1.1.2.7#Copy the rest of B into the end of A (B is already sorted)
+					while ( i < length(B) )#7.1.1.2.8#
+					{
+					    A[k] = B[i];#7.1.1.2.9#
+					    k = k + 1;#7.1.1.2.10#
+					    i = i + 1;#7.1.1.2.11#
+					}
+				@
+			@
+                        @
+                    @
+	} @
+     @
+@
+
+
+

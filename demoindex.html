@@ -1,0 +1,73 @@
+<html><head><title> Welcome to Algorithms In Action </title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<script language = "JavaScript">
+<!--
+// This is an automatically generated file, do not edit
+function getCookieVal (offset)
+{ var endstr = document.cookie.indexOf (";", offset);
+if (endstr == -1)
+{ endstr = document.cookie.length; }
+return unescape (document.cookie.substring(offset, endstr));
+}
+function getCookie (name)
+{ var arg = name + "=";
+var alen = arg.length;
+var clen = document.cookie.length;
+var i = 0;
+while (i < clen)
+{ var j = i + alen;
+if (document.cookie.substring (i,j) == arg)
+{ return getCookieVal (j); }
+i = document.cookie.indexOf (" ", i) + 1;
+if (i == 0) break;
+} return null;}
+userName = getCookie ("user");
+if (userName == null)
+{ document.write ("<font size=+2><b>Error!!<br></b><br></font>");
+document.write ("<font size=+1>");
+document.write ("AiA requires Java, JavaScript and COOKIES enabled to");
+document.write (" work. Please enable these features and retry.");
+document.write ("</font><br>");
+}
+function getHTMLDir()
+{
+	var htmldir = 'lang_en';
+	var lang = getCookie('language');
+	if(lang)
+	{
+	  //src will be replaced by cgi script as the absolute directory.
+	  src="";
+		htmldir = src+'lang_'+lang;
+	}
+	return htmldir;
+}
+
+function setFrames(){
+var htmldir = getHTMLDir();
+frames['title'].location = htmldir+"/"+"title.html";
+frames['content'].location = htmldir+"/"+"studentmain.html"
+frames['bottom'].location = htmldir+"/"+"studentbottom.html"
+}
+//-->
+</script></head>
+
+<noscript>
+<meta HTTP-EQUIV="Refresh" CONTENT="5; URL=http://ww2.cs.mu.oz.au/aia/$HTTP_REFERER">
+<font size=+2><b>
+Error!! <br></b><br></font>
+<font size=+1>
+AiA requires Java, JAVASCRIPT and Cookies enabled to work. Please enable these features and retry.<br>
+</font></noscript>
+<frameset cols="1%,25%,*">
+<frame src="blank.html" scrolling=no noresize name="blank">
+<frame src="demobar.html" name="navi">
+<frameset rows="40%,50%,10%" border=0 frameborder=0 onload="setFrames()">
+<frame name="title" scrolling="no">
+<frame name="content">
+<frame name="bottom">
+</frameset></frameset>
+
+<noframes>
+<center> Sorry, this page uses frames, which your browser does not support. You can access our <a href="http://ww2.cs.mu.oz.au/aia/front.html"> front page </a> and <a href="http://ww2.cs.mu.oz.au/aia/bar.html"> navigation menu </a> via these links.
+</noframes>
+</html>

@@ -1,0 +1,36 @@
+$~TransClosure ()#1
+$~{#1.1
+    for (y=0;y<NumVertices;y++)#2
+    $~{
+        for (x=0;x<NumVertices;x++)#3
+        $~{
+            $If there is a link from x to y #4
+                if (adjacency_matrix[x][y] !=0) #5#4|
+            @
+            $~{ 
+                for (j=0;j<NumVertices;j++)#6
+                $~{
+                    $If there is a link from y to j#7
+                        if (adjacency_matrix[y][j] != 0) #8#7|
+                    @
+                    $~{
+                        $Draw a link from x to j#9
+                                $~if (x != j){#9.1
+                                    adjacency_matrix[x][j] = 1; #9.2#9|
+                                @
+                                }
+                        @
+                    @
+                    }
+                @
+                }
+            @
+            }
+        @
+        }
+    @
+    }
+@
+}#10
+@
+

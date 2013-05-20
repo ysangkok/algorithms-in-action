@@ -1,0 +1,15 @@
+$~Red-Black-Tree#1
+$~{
+	// Build Red-Black Tree
+	$~Build Red-Black Tree () {#2
+		Initialize (RBtree)#2.1
+		$~While (Data Items)#2.2
+			Insert (RBtree,DataItem)#2.2a
+		@
+	@
+	}#2.3
+	// Search
+	BST-Search (RBtree,DataItem)#4#Search in a Red Black tree is exactly the same as in a Binary Search Tree.
+@
+}
+@	

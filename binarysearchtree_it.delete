@@ -1,0 +1,111 @@
+$~//Cancellazione da Albero Binario di Ricerca
+
+ABR-Cancellazione(AlberoBinarioRicerca, Elemento)#4.0#Rimuove l'Elemento dall'Albero Binario di Ricerca
+$~{
+    	$Inizializza Ptr e Genitore alla Radice#4.1#Inizia definendo alcuni puntatori al nodo Radice.
+		Ptr=Genitore=Radice;#4.1.1#4.1|Inizia definendo alcuni puntatori al nodo Radice. Il puntatore Ptr tiene traccia della posizione che stiamo analizzando. Il puntatore Genitore tiene traccia della posizione precedente in modo da poter poi facilmente rimuovere l'Elemento trovato.
+    	@
+    	$Cerca l'Elemento per rimuoverlo#4.2
+		// Cerca l'Elemento
+		while(!uguale(Elemento, Ptr->chiave))#4.2.1#Sappiamo già che l'Elemento è presente nell'albero, non occorre quindi fare un controllo su Null		
+		$~{
+			Genitore = Ptr;#4.2.1.1#Avanza il puntatore Genitore lungo il cammino di ricerca
+			$~if(minore(Elemento, Ptr->chiave)#4.2.1.2#Confronta Elemento con la chiave del nodo identificato dal puntatore Ptr
+				Ptr = Ptr->figlioS;#4.2.1.2.1#L'elemento è minore della chiave, segue allora il figlio destro nel cammino di ricerca
+			@
+			$~else#4.2.1.3#L'Elemento è maggiore o uguale alla chiave del nodo identificato dal puntatore Ptr
+				Ptr = Ptr->figlioD;#4.2.1.3.1#L'Elemento è maggiore o uguale alla chiave, segue allora il figlio destro nel cammino di ricerca
+			@		
+		@
+		}#4.2.2
+		GenitorePrecedente = Genitore;#4.2.3#Mantiene un puntatore (GenitorePrecedente) al nodo identificato attualmente da Genitore
+		Genitore = ElementoPtr = Ptr;#4.2.4#4.2|Mantiene un puntatore (ElementoPtr) al nodo identificato da Ptr
+	@
+	$Sostituisce Elemento con il successore o con il predecessore#4.3   
+		$~#
+		$Se è presente un successore ordinato rimpiazza l'Elemento con il successore ordinato, ossia con il nodo che ha per chiave il più piccolo dei valori che seguono l'Element#4.3.2#4.3|
+			$~#
+			$Trova il nodo più a sinistra nel sottoalbero destro#4.3.2.3#Il nodo più a sinistra nel sottoalbero destro è il successore ordinato, ossia il nodo con il più piccolo dei valore che seguono l'Elemento.
+				Ptr = Ptr->figlioD;#4.3.2.3.1#Sottoalbero destro.
+				while (Ptr->figlioS non è nullo)#4.3.2.3.2#Trova il nodo più a sinistra.
+				$~{
+					Genitore = Ptr;#4.3.2.3.2.1
+					Ptr = Ptr->figlioS;#4.3.2.3.2.2
+				@
+				}#4.3.2.3.3#4.3.2.3|
+			@
+			$Rimpiazza l'Elemento con il successore#4.3.2.4
+				If (ci sono nodi a sinistra nel sottoalbero destro)#4.3.2.4.1#A meno che il successore non sia il figlio destro del nodo da rimuovere, ci saranno sicuramente nodi a sinistra nel sottoalbero destro.
+				$~{
+					Genitore->figlioS = Ptr->figlioD;#4.3.2.4.1.1#'Rilascia' il successore dall'albero scavalcandolo. Questo prepara l'operazione di spostamento del nodo al passo successivo
+					Ptr->figlioS = ElementoPtr->figlioS;#4.3.2.4.1.2#Rimpiazza l'Elemento con il successore precedentemente 'rilasciato'
+					Ptr->figlioD = ElementoPtr->figlioD;#4.3.2.4.1.3#4.3.2.4|Rimpiazza l'Elemento con il successore precedentemente 'rilasciato'
+				@
+				}
+				else #4.3.2.4.2#In questo caso non ci sono figli a sinistra del successore che occorra collegare.
+				$~// Il successore è il figlio destro del nodo da rimuovere
+					//Rimpiazza l'Elemento
+					Ptr->figlioS = ElementoPtr->figlioS;#4.3.2.4.2.1#4.3.2.4|
+				@				
+			@
+			$Ricollega all'albero il nodo che ha rimpiazzato l'elemento rimosso#4.3.2.5#4.3.2|
+				$~if(NodoDaRimuovere è la Radice) #4.3.2.5.1#Questo è un caso speciale in cui il nodo rimosso era la radice dell'albero. Non è presente quindi un Genitore, e dobbiamo pertanto sostituire la Radice.
+					Radice = Ptr;#4.3.2.5.1.1#4.3.2.5|
+				@
+				$~else if(NodoDaRimuovere è un figlio sinistro)#4.3.2.5.2
+					GenitorePrecedente->figlioS = Ptr;#4.3.2.5.2.1#4.3.2.5|
+				@
+				$~else //if(NodoDaRimuovere è un figlio destro)#4.3.2.5.3
+					GenitorePrecedente->figlioD = Ptr;#4.3.2.5.3.1#4.3.2.5|
+				@
+			@
+			#
+			@
+		@
+		$Altrimenti rimpiazza il nodo con il predecessore ordinato, ossia con il nodo che ha per chiave il più grande dei valori che precedono l'Elemento#4.3.1#4.3|
+			$~#
+			$Trova il nodo più a destra del sottoalbero sinistro#4.3.1.3#Il nodo più a destra del sottoalbero sinistro è il predecessore ordinato, ossia il nodo con il più grande dei valori che precedono l'Elemento.
+				Ptr = Ptr->figlioS;#4.3.1.3.1#Sottoalbero sinistro.
+				while (Ptr->figlioD non è null)#4.3.1.3.2#Trova il nodo più a destra.
+				$~{
+					Genitore = Ptr;#4.3.1.3.2.1
+					Ptr = Ptr->figlioD;#4.3.1.3.2.2
+				@
+				}#4.3.1.3.3#4.3.1.3|
+			@
+			$Rimpiazza Elemento con il predecessore#4.3.1.4
+				if(ci sono nodi a destra nel sottoalbero sinistro)#4.3.1.4.1#A meno che il predecessore sia il figlio sinistro del nodo da rimuovere, ci saranno sicuramente nodi a destra nel sottoalbero sinistro 
+				$~{
+					Genitore->figlioD = Ptr->figlioS;#4.3.1.4.1.1#'Rilascia' il predecessore dall'albero scavalcandolo. Questo prepara l'operazione di spostamento del nodo al passo successivo.
+					Ptr->figlioS = ElementoPtr->figlioS;#4.3.1.4.1.2#Rimpiazza l'Elemento con il predecessore 'rilasciato'.
+					Ptr->figlioD = ElementoPtr->figlioD;#4.3.1.4.1.3#4.3.1.4|Rimpiazza l'Elemento con il predecessore 'rilasciato'.
+				@
+				}
+				// else il predecessore è il nodo sinistro del nodo da rimuovere#4.3.1.4.2#Sappiamo che il nodo da rimuovere non ha un sottoalbero destro, in quanto non è presente nell'albero un predecessore ordinato. Sappiamo quindi a questo punto che il nodo che lo rimpiazzerà sarà il suo figlio sinistro, e che il nodo che lo rimpiazzerà non ha inoltre un figlio destro. Per motivi di simmetria con il caso del successore ordinato, possiamo inserire il codice seguente. Tuttavia, poichè entrambi i valori sono null, questo codice non è strettamente necessario. 
+				$~//{				
+					//Ptr->figlioD = Elemento->figlioD;#4.3.1.4.2.1#4.3.1.4|
+				@
+				//}
+			@
+			$Colleghiamo di nuovo all'albero il nodo che ha rimpiazzato l'Elemento rimosso#4.3.1.5#4.3.1|
+				$~if(NodoDaRimuovere è la Radice)#4.3.1.5.1#Questo è un caso speciale in cui il nodo rimosso era la radice dell'albero. Non è presente quindi un Genitore, e dobbiamo pertanto sostituire la Radice
+					Radice = Ptr;#4.3.1.5.1.1#4.3.1.5|
+				@
+				$~else if(NodoDaRimuovere è il figlio sinistro)#4.3.1.5.2
+					GenitorePrecedente->figlioS = Ptr;#4.3.1.5.2.1#4.3.1.5|
+				@
+				$~else //if(NodoDaRimuovere è il figlio destro)#4.3.1.5.3
+					GenitorePrecedente->figlioD = Ptr;#4.3.1.5.3.1#4.3.1.5|
+				@
+			@
+			#
+			@
+		@
+		#
+		@
+	@
+@
+}#4.0.1
+@
+
+

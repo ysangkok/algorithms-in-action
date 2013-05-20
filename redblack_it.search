@@ -1,0 +1,21 @@
+$~Search(RBtree,DataItem)#4
+$~{
+	$Initialise#4.1#Start search at root of the designated tree.
+		Ptr = Parent = Root;#4.1.1#4.1|#Start search at root of the designated tree.
+	@
+	$~While (Ptr Not Null) {#4.2#The search may continue to the bottom of the tree.
+		if(Ptr->Key==DataItem) return FOUND;#4.2.1#Stop once the key sought for has been found.
+		$~else#4.2.2#Otherwise keep searching, going the next level down the tree.
+			$Advance Ptrs#4.2.2.1#Otherwise keep searching, going the next level down the tree.
+				$~if(DataItem < Ptr->Key)#4.2.2.2#Compare data item and the data pointed by the search pointer. 
+					Ptr = Ptr->lchild#4.2.2.3#4.2.2.1|Item key is less, so should follow the left child on search path.
+				@
+				else Ptr = Ptr->Rchild #4.2.2.4#4.2.2.1|Item key is greater or equal, so should follow the right child  on search path.
+			@
+		@
+	@
+	}#4.2.3
+	return NOTFOUND#4.3#If no match is found along the search path, then the item is not in the tree.
+@
+}#4.3
+@

@@ -1,0 +1,27 @@
+$~//Search Radix Trie
+    Trie-Search(Trie, Item)#5
+    $~{
+      	$Follow Search Path#5.1#Find the search path by following the appropriate branch for each group of d bits
+		Level = 0;#5.1.1
+		while (Trie not at Leaf)#5.1.2#Only leaves have data items
+		$~{
+			$Branch based on bits of item at Level#5.1.2.1#We look at d bits for each level. So for level 0 we look at the first d bits, then at level 1 we look at the next d bits, etc. There are 2^d branches at each level. For example, if d = 2 then we look at 2 bits, and there are 2^d = 4 possible branches: 00, 01, 10, 11.
+				Get bits at Level;#5.1.2.1.1
+				Branch based on Bits Pattern;#5.1.2.1.2#5.1.2.1|
+			@
+			Increment Level;#5.1.2.2#Go to the next d bits and next level in the multi-way trie
+		@
+		}#5.1.3#5.1|
+
+	@
+ 	$Compare Keys at end of Search Path#5.2#We need to compare keys when we find a leaf. We are certain that the bits we have looked at are in the search key, but we do not know whether the bits we have not examined are the same.
+		$~if (ItemKey == TrieKey)#5.2.1#The key at the leaf is what we are looking for, so we have a successful search.
+			return FOUND;#5.2.1.1#5.2|
+		@
+		$~else#5.2.2#The key at the leaf is not what we are looking for, so we know that the item we are searching is not in the trie, unsuccessful search.
+			return NOT_FOUND;#5.2.2.1#5.2|
+		@
+	@
+    @
+    }
+@

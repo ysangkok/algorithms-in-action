@@ -1,0 +1,6 @@
+$~Dig-Delete(DigSearchTree, DataItem)#7.0
+$~{
+    Delete the data item from the tree
+@
+}
+@

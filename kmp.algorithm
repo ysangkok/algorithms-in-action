@@ -1,0 +1,54 @@
+$~KMP String Search (String pattern, String text)#0
+$~{
+	$Build Next Table#1#Preprocess pattern by constructing NextTable. The NextTable captures repetition in the pattern, and is used to determine where to restart testing when a mismatch is found.
+		nextTable[0] = -1;#1.2.1#Initialise NextTable. Special case where the first character do not match.
+		for (j = 1; i < pattern.length; i++)#1.2.2#Calculate NextTable entry for each position in the pattern.
+		$~{
+			Test = First j characters from pattern#1.2.2.1#Look at only a sub-pattern of j characters at a time.
+			$Slide Test over itself until overlap matches#1.2.2.2
+				Start with the copy one off to the right#1.2.2.2.0#Start testing for overlaps as soon as possible.
+				$~while (still overlapping and overlap does not match) {#1.2.2.2.1#Slide the subpattern across itself, one character at a time, until a match is found that extends to the end of the subpattern. Stop sliding when the end of the subpattern has been reached.
+					Slide copy to the right#1.2.2.2.2#Slide the subpattern across itself, one character at a time, until a match is found that extends to the end of the subpattern. Stop sliding when the end of the subpattern has been reached.
+				@
+				}#1.2.2.2.3#1.2.2.2|
+			@
+			nextTable[j] = number of characters matching#1.2.2.3#Enter into the NextTable the number of characters at the end of the subpattern that match the beginning of the subpattern.
+		@
+		}#1.2.3#1|
+	@
+
+	$Search text utilising next table#2#Check text for pattern, using the NextTable.
+		$Initialisation#2.1
+			i = 0;#2.1.1 
+			j = 0;#2.1.2#2.1|
+		@
+		while (i < textlength && j < patternlength)#2.3#Keep trying to match until we reach either the end of the text (not found) or the end of the pattern (found).
+		$~{
+			$~if (text[i] != pattern[j])#2.3.1#Mismatch case
+				$Skip ahead#2.3.1.1
+					$j = nextTable[j];#2.3.1.2#Reset pattern pointer according to the value in the NextTable.
+						Set j to nextTable[j];#2.3.1.2.1#Reset pattern pointer according to the value in the NextTable.
+						'Slide' pattern so the pointers match;#2.3.1.2.2#2.3.1.2|Reset the pattern pointer effectively slides the pattern across the text. 	
+					@
+					if (j == -1) Start at beginning of pattern#2.3.1.3#2.3.1.1|Reset search position for special case where the first character did not match.
+				@
+			@
+			$~else#2.3.2#Match
+				$Check next character for match#2.3.2.1#Advance both pointers to check next character.
+					i++; j++;#2.3.2.1.1#2.3.2.1|Advance both pointers to check next character.
+				@
+			@
+		@
+		}#2.3.3
+		$Return results#2.4
+			$~if (j == patternlength)#2.4.1#If we get to the end of the pattern, it has been found in the text. Return the start point.
+				return (found at (i - patternlength));#2.4.1.1#2.4|2|If we get to the end of the pattern, it has been found in the text. Return the start point.
+			@
+			$~else#2.4.2#If we get to the end of the text, the pattern has not been found in the text.
+				return (not found);#2.4.2.1#2.4|2|If we get to the end of the text, the pattern has not been found in the text.
+			@
+		@
+	@
+@
+}#3
+@

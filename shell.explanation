@@ -1,0 +1,14 @@
+Shellsort works on a principle similar to that of insertion sort, but uses larger jumps in the initial stages.  Because Shellsort allows data items to move larger distances more easily than insertion sort, it is more efficient.
+
+
+We h-sort the file for successively smaller values of h.  The basic h-sort step arranges the file such that, starting at any element, all elements separated by a distance of h are in sorted order.  The procedure to h-sort a file is the same as insertion sort, except that element E is compared with the element h places before it, instead of with its immediate predecessor, as in insertion sort.    When finished h-sorting the file for any given value of h, we have h interleaved subfiles.  Within each subfile, all elements h positions away from each other are in sorted order relative to each other. We then decrease the value of h and h-sort the file again.
+
+We h-sort the file with progressively smaller values of h.  In the last pass, h=1, and we are effectively using insertion sort to clean up an almost-sorted file.
+
+A number of different sequences for determining h can be used. Efficiency requires that the step sizes be relatively prime to one another.
+
+Analysis of Shellsort is difficult, and the number of comparisons is dependent on the increment sequence.
+
+
+
+

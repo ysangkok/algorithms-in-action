@@ -1,0 +1,7 @@
+Quicksort is a fast, in-place general-purpose sorting algorithm.  It works by recursively partitioning an array around a partition element: one partition contains elements less than or equal to the partition element, and the other partition contains elements greater than or equal to the partition element.
+
+On average, each partitions will be contain half the array, resulting in an O(n log n) sort.  In the worst case, however, one partition could be empty at each step, resulting in an O(n^2) sort.
+
+There are various ways to choose the partition element.  For example, one could just take the rightmost element.  In the case of an already sorted file or an almost-sorted file, this will result in O(n^2) behavior.  Another way is to take a random element, or to take the middle element of three; the three could be chosen randomly, or could be the first, middle, and last elements of the array.
+
+Quicksort is not stable.

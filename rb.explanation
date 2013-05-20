@@ -1,0 +1,10 @@
+The red-black is an implementation of the 2-3-4 tree as a binary tree with an extra flag in each node.  It thus achieves the balance advantage of the 2-3-4 tree, without the necessity of having different cases for each of the different kinds of nodes.
+
+Each node has a colour field that is set to black when it depicts a link in the analogous 2-3-4 tree, and is set to red when the node and its parent are part of a 3- or 4-node in the analogous 2-3-4 tree.
+
+Since a redblack tree is really a balanced binary search tree with an extra field, search is the same as for a binary search tree.
+
+Insertion into a red-black tree first finds the point of insertion, as for a binary search tree, the insert.  Insertion follows the strategy of the 2-3-4 tree, where each insertion is into an existing node, so the new links are always red.  The tree is kept balanced by making sure that we observe the red-black condition: a node and its parent cannot both be red.  Whenever the red-black condition is violated after an insertion, we correct the situation by rotating.  A single rotation will correct the zig-zig situation, where the red links are both left links or both right links.  Two rotations are needed to correct the zig-zag situation, where the red links are right-left or left-right. Rotation is a local operation, requiring 3 pointer changes.
+
+Like the top-down 2-3-4 tree, we split 4-nodes on the way down the red-black tree search path.  Splitting of 4-nodes is accomplished simply by flipping colors: The middle node is dissociated from its 4-node partners by changing their links from red to black, and the middle node is associated with its new partners in the node above by making those links red.
+

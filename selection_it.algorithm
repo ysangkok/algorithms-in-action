@@ -1,0 +1,23 @@
+$~SelectionSort#1#Selection Sort
+	$~{
+		// Per ogni posizione dell'array
+		for (i=0; i < lunghezzaArray; i++)#2#L'array viene analizzato cercando di volta in volta l'elemento minimo in una porzione di array che parte dall'elemento in posizione i fino all'ultimo elemento
+		$~{
+			posizioneMinimo = i;#3#Da qui parte un semplice algoritmo di ricerca del minimo. L'algoritmo comincia a cercare dalla posizione i.
+			$ cerca l'elemento minimo dalla posizione corrente alla fine #4#Scorre l'array ricordando di volta in volta la posizione dell'elemento minimo trovata fino a quel momento
+				for (j = i+1; j < lunghezzaArray; j++)#5#Cerca il minimo tra tutti gli elementi dell'array a partire da quello in posizione i fino all'ultimo
+				$~{
+					$~if (dati[j] < dati[posizioneMinimo])#6#Se l'elemento nella posizione che stiamo ora considerando è minore del minimo trovato 
+						posizioneMinimo = j;#7#Cambiamo l'elemento minimo trovato sinora. Il nuovo elemento minimo, tra quelli considerati sinora, è l'elemento che stiamo considerando in questo momento
+					@
+				@
+				}#8#4|
+			@
+			$Scambia il minimo con l'elemento nella posizione corrente#10#Dopo aver trovato l'elemento minimo lo scambia con l'elemento che si trova nella prima posizione della porzione di array che stiamo analizzando ora (i)
+				scambia (dati[i], dati[posizioneMinimo]);#13#10|
+			@
+		@
+		}#14#
+	@
+    	}#15#1|
+@

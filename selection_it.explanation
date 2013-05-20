@@ -1,0 +1,11 @@
+Il Selection Sort è uno degli algoritmi di ordinamento di base.
+
+All'inizio ogni elemento dell'insieme viene esaminato per individuare l'elemento minimo.  Una volta trovato
+l'elemento minimo lo scambiamo con l'elemento in prima posizione. Ripetiamo quindi lo stesso procedimento sugli
+elementi che si trovano ora nelle posizioni dalla 2 alla n, quindi sugli elementi nelle posizioni dalla 3 alla n, e così via fino a che tutto l'insieme risulta ordinato.
+
+Il Selection Sort richiede sempre un tempo di calcolo proporzionale a n².
+
+
+
+

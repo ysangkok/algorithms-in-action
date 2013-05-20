@@ -1,0 +1,7 @@
+The patricie trie is a radix-based search structure.  It is a tree structure, in which each item is inserted based on the bits in its key.  The particular advantage of the patricia trie over the radix trie is that only useful bits are examined, that is bits that distinguish between keys.  Each node in the patricia trie contains a key and also a number that says what the next bit to examine is.
+
+Insertion into a patricia trie involves first finding the position of the bit that differentiates the key to be inserted from the closest stored key in the trie, then inserting a node containing the key and the position of the differentiating bit into the trie.
+
+In this implementation of the Patricia Trie, links to children can point down (as usual), up, or be self-referential.  Down links are followed to the insertion point.  When following a down link, the number of the differentiating bit in the child is always bigger than the number of the differentiating bit in the parent, that is we look at yet another bit in the key.  An uplink or self-referential link, which leads to a node with a lower number for the differentiating bit, is a signal that the end of the search has been reached.
+
+Reference: Morrison, 1968

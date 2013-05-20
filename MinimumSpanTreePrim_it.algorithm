@@ -1,0 +1,36 @@
+$~PrimMinSpanTree ()#1
+$~{#1.1
+    $Initialise #2 
+        $Initialise visit sequence array#2.1
+	    visit_seq = int[NumVertices] #2.1.1
+            $~for (k=0;k<NumVertices;k++){#2.1.2
+                visit_seq[k] = 0;#2.1.2.1
+            @
+            }#2.1.3#2.1|
+        @
+        $Initialise visit sequence number#2.2
+            seq_num = 0#2.2.1#2.2|
+        @
+        $Initialise Priority Queue #2.3
+            Set distance_from_MST all nodes to INFINITY#2.3.1#2.3|
+        @
+        \#2.4#2|
+    @
+    $Visit all unvisited vertices#3
+        $Loop through unconnected components#3.1
+        for (k=root;k<NumVertices;k++)#3.1.1#3.1|
+        @
+        $~{
+                $Visiting all reachable, unvisited nodes#3.2
+                if (k not yet visited)#3.3
+                $~{
+                visit(k,visit_seq, seq_num)#4#3.2|
+                @
+                }
+                @
+        @
+        }#4.1#3|
+    @
+@
+}#9
+@

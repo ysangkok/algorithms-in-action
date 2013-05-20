@@ -1,0 +1,195 @@
+
+<html> 
+<head>
+<title>Select language</title>
+
+<script type="text/javascript">
+var languages= new Array();
+languages['en'] = "English";
+languages['it'] = "Italian";
+
+
+
+function loadLangMenu()
+{
+	var htmltext = "<tr style=\"cursor:pointer\" onclick=\"selectLang('LANG_CODE')\"><td onmouseover=\"highlight(this)\" onmouseout=\"unhighlight(this)\"><img src=\"flags/LANG_CODE.gif\"/>&nbsp;&nbsp;LANG_NAME</td></tr>";
+	for(var i in languages)
+	{
+		altered = htmltext.replace(/LANG_CODE/g,i);
+		altered = altered.replace(/LANG_NAME/g,languages[i]);
+		document.write(altered);
+	}
+}
+
+function highlight(obj)
+{
+	
+	obj.bgColor="#efefef";
+}
+function unhighlight(obj)
+{
+	obj.bgColor="#ffffff";
+}
+
+
+function displayLangMenu()
+{
+	langListElement = document.getElementById("langlist").style;
+	langListElement.display=(langListElement.display=="none")?"block":"none";
+}
+	
+function selectLang(lang)
+{
+	//sets cookie
+	setLangCookie(lang);
+	//update html display of selected lang
+	updateSelectedLang(lang);
+	//close menudisplay
+	document.getElementById("langlist").style.display="none";
+}	
+function updateSelectedLang(lang)
+{
+	document.getElementById("langname").innerHTML=languages[lang];
+	document.getElementById("langflag").src="flags/"+lang+".gif";
+}
+	
+function setLangCookie(lang) {
+  var cookieval = "language="+escape(lang);
+  var expire = new Date();
+  //1 month expiry date for language cookie
+  expire.setTime((new Date()).getTime() + 3600000*24*31);
+  cookieval = cookieval + " ;path=/ ;expires="+expire.toGMTString();
+  document.cookie = cookieval;
+}
+
+function getLangCookie() {
+  return getCookie('language');
+}
+
+function getDefaultBrowserLang()
+{
+	var lang='en';
+	
+	var userLang = (navigator.language) ? navigator.language : navigator.userLanguage; 
+	if(userLang)
+	{
+		var sep = userLang.search(/\W+/);
+		//grabs only the language portion, discard the country/variant
+		lang = (sep!=-1)?userLang.substring(0,sep):userLang;
+	}	
+	return lang.toLowerCase();
+}
+	
+function initDefaultLang()
+{
+	document.cookie = "nolog=true ;path=/";
+	document.cookie = "notrace=true ;path=/";
+
+	//check if language cookie present
+	var cookieLang = getLangCookie();
+	if(!cookieLang)
+	{
+		cookieLang = getDefaultBrowserLang();
+		selectLang(cookieLang);	
+	}
+	else
+	{
+		updateSelectedLang(cookieLang);
+	}
+}		
+	
+	
+function checkDefaultBrowserLang()
+{
+	var userLang = (navigator.language) ? navigator.language : navigator.userLanguage; 
+	return userLang.toLowerCase();
+}
+
+	
+//copy from previous code 
+function getCookieVal (offset)
+{ 
+	var endstr = document.cookie.indexOf (";", offset);
+	if (endstr == -1)
+	{
+		 endstr = document.cookie.length; 
+	}
+	return unescape (document.cookie.substring(offset, endstr));
+}
+function getCookie (name)
+{ 
+	var arg = name + "=";
+	var alen = arg.length;
+	var clen = document.cookie.length;
+	var i = 0;
+	while (i < clen)
+	{ 
+		var j = i + alen;
+		if (document.cookie.substring (i,j) == arg)
+		{ 
+			return getCookieVal (j); 
+		}
+		i = document.cookie.indexOf (" ", i) + 1;
+		if (i == 0) break;
+	} 
+	return null;
+}	
+
+function redir()
+{
+	//sets necessary cookie
+	document.cookie = "user=demo ;path=/";
+	document.cookie = "ulog=false ;path=/";
+	
+	//fake redirect according to user input
+	window.location = "demoindex.html";
+}
+
+	
+</script> 
+</head>
+     
+<body onload="initDefaultLang()">
+
+<!-- image is 90% of frame height to accomodate different screen resolutions -->
+
+
+
+ <img src="logo/logobright.jpg" height="90%" align="left">
+
+<!-- For vertical alignment, however this may not be good for all fonts -->
+<!-- Mikey original had 2 * <br>, comic font large -->
+<br><br><br><br><br><br><br><br><br>
+
+
+<font class="ser" size=14> <b> Algorithms In Action </font> </b>
+
+<form name="aform" action="" method="POST"> 
+
+<table border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td colspan="2">&nbsp;</td>
+	<tr>	
+		<td valign="top">Language preference: &nbsp; &nbsp;</td> 
+		<td><span onclick="displayLangMenu()" style="cursor:pointer"><img id="langflag" src="flags/en.gif"/>&nbsp;&nbsp;<span id="langname">English</span>&nbsp;&nbsp;&nbsp;<font size=-1><a href="javascript:displayLangMenu()" onclick="displayLangMenu()">change</a></font></span> 
+				<div id="langlist" style="display:none">
+					<table border="0" cellpadding="0" cellspacing="0">
+						 <script type="text/javascript">loadLangMenu()</script>
+					</table>
+				</div>				
+		</td>
+  </tr>
+	<tr colspan="2">	
+		<td>&nbsp;</td>
+
+  </tr>
+	<tr colspan="2">	
+		<td><input type="button" value="Enter" onclick="redir()"></td>
+
+  </tr>
+</table>     
+</form>
+
+</body> 
+</html> 
+

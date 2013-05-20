@@ -1,0 +1,61 @@
+$~Straight Radix Sort ()#0
+$~{
+	$For each bit, from LSB#6
+		for (bit=LSB; bit<=MSB; bit++)#6.1#6|
+	@
+	$~{
+		$Record cumulative counts#1
+			$Initialize count array#1.1
+				$~for (j=0; j<alphsize; j++) {#1.1.1
+					count[j] = 0;#1.1.1.1
+				@
+				}#1.1.2#1.1|
+			@            
+			$Get counts#1.2
+				$~for (i=0; i<N; i++) {#1.2.1
+					count[getBit (bit, a[i])]++;#1.2.1.1
+				@
+				}#1.2.2#1.2|
+			@
+			$Get cumulative counts#1.3
+				$~for (j=1; j<alphsize; j++) {#1.3.1
+					count[j] = count[j-1] + count[j];#1.3.1.1
+				@	
+				}#1.3.2#1.3|
+			@
+			$Shuffle Right#1.4
+				count [1] = count [0];#1.4.1
+				count [0] = 0;#1.4.2#1.4|1|
+			@
+		@
+		$For each item in array#2
+			for(i=0; i < N; i++)#2.1#2|
+		@
+		$~{#3
+				$Final position indicated by count array#3.1
+				$Copy item to final position in auxiliary array#3.1.1
+					b[count[getBit (bit, a[i])]] = a[i]);#3.1.1.1#3.1.1|3.1|
+				@
+			@
+			$Adjust cumulative counter#3.2
+				$increment count[item]#3.2.1
+					count[getBit (bit, a[i])]++;#3.2.1.1#3.2.1|3.2|
+				@
+			@
+		@
+		}#4
+		$Copy auxiliary array back to original array#5
+			$~for (i=0; i<N; i++) {#5.1
+				a[i] = b[i];#5.1.1
+			@
+			}#5.2#5|
+		@
+	@
+	}#7
+@
+}#8
+@
+
+
+
+

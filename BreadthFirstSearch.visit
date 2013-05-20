@@ -1,0 +1,31 @@
+$~Visit(k, visit_seq, seq_number)#4
+$~{
+       Put k into Queue #5
+       $~While (Queue not empty){ #6
+	    Get k from Queue #6.1
+       	    $ Record sequence number of k #6.2
+              visit_seq[k] = ++seq_num; #6.2.1#6.2|
+            @
+            $ for all adjacent vertices#6.3|6.6|
+	      adj_node = adj_structure[k]; #6.3.1
+              while (adj_node not Null) #6.3.2#6.3|
+            @
+            $~{
+              $if adjacent node not visited or is pending#6.4
+               if (visit_seq[adj_node] == 0)#6.4.1#6.4|
+              @
+              $~{ 
+		  Put adj_node into Queue #6.5.1
+		  $ Set visit status of adj_node to pending #6.5.2
+                       visit_seq[adj_node] = PENDING; #6.5.2.1#6.5.2|
+                  @
+              @
+	      }
+	      \|advance adj_node#6.6
+	    @
+	    }
+       @
+       }
+@
+}#7
+@

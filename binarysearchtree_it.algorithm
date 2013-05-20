@@ -1,0 +1,19 @@
+$~AlberoBinarioDiRicerca()#0
+{
+    //Costruisce l'Albero Binario di Ricerca
+    $Inizializza(AlberoBinarioRicerca)#1
+        Radice = nuovoNodo(Elemento);#1.1#1|Crea un nuovo nodo e lo memorizza nel puntatore Radice.
+    @
+    $~While(Ci Sono Elementi)#2
+         Inserisci(AlberoBinarioRicerca, Elemento)#2.1s#Inserisce l'Elemento in AlberoBinarioRicerca nella corretta posizione. La posizione corretta è determinata a partire dalla chiave dell'Elemento e dalle chiavi degli elementi già inseriti nell'albero.
+    @
+
+    //Ricerca
+    ABR-Ricerca(AlberoBinarioRicerca, Elemento)#3s#Controlla se l'Elemento compare in AlberoBinarioRicerca
+    @
+
+    //Cancella
+    ABR-Cancella(AlberoBinarioRicerca, Elemento)#4s#Rimuove l'Elemento da AlberoBinarioRicerca
+    @
+@
+}

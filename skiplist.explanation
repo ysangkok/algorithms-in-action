@@ -1,0 +1,13 @@
+The skip list data structure is based on a sorted linked list.  Extra links are added for most nodes, and allow the search to skip over much of the list.  Excellent complexity is achieved for search and insert, in a probabilistic sense.  That is, while any given search has a high probability of being efficient, there is a non-zero probability that it will be very inefficient.  In the (extremely unlikely) degenerate case where each node has only a single link, search degenerates to linear search through a linked list.
+
+During search, the longest (highest) links are followed first.  Once the search has passed the place where the item we are seeking should be, we drop down to the next level of shorter links.  We continue doing this until we are down at the bottom level.  At this point, we know that the item should be the next node.
+
+At this point, a search operation will either return the found node, or else return an unsuccessful search.  An insertion operation will insert the node at this point.
+
+Insertion requires us to allocate a new node, with a randomized number of links.  The number of levels in a new node is determined by iterating through a loop whose body adds a new level with a certain probability (p=0.5 in the example shown).  The loop terminates when a new level is not added.  The new node is then linked into the list at each of its levels.
+
+The probabilistic nature of skip list comes from the use of a randomization to determine the number of links from each node. While it is extremely unlikely that every node would have only a single link, this could happen, and search would degenerate to linear search.
+
+The probability of adding a new link is a parameter that can be changed, and the change will affect the search.  The lower the probability of adding a new level, the fewer high-level links there will be. Operationally this means that the skips will be longer at the higher levels, but that there will be more single-stepping at the bottom level.
+
+Reference: W. Pugh. Communications of the ACM Vol 33, 668-676, 1990.

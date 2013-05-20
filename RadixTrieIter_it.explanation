@@ -1,0 +1,5 @@
+The Radix trie is a data structure for searching. A data item is inserted into the trie based on the bits in its key. Starting with the most significant bit, we examine the bits one by one. At each level in the tree, we advance either left or right, depending on whether the bit is 0 or 1. 
+
+We usually get to the end of the path before all the bits in the key have been examined. If we are at a null node, then we can make a new external node for the new item and link it to the rest of the tree. If we are at a leaf, we need to compare the existing data item with the new one. There must be an internal node for each bit where they are the same, up to the first bit where the two keys differ.
+
+For search in a trie, we follow the path determined by the bits, again going left for a 0 and right for a 1. When we get to a leaf, we need to compare the key we are looking for with the key we have found, since we only know that they are the same for the first "level" bits. 

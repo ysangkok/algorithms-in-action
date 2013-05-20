@@ -1,0 +1,11 @@
+Heapsort is a general purpose in-place sort.  It is guaranteed to sort in O(n*logn) time.
+
+The general idea is that we will pick off the largest item in our data set,put it in its final place at the end, then from the remaining unsorted data pick the next largest item, put it in its final place in the second from last position, and continue until finished.
+
+What is needed is a data structure where we can quickly get out the largest item.
+
+The heap is such a structure, and we create a data structure called a max heap. This is a tree which satisfies the max heap condition: it is a complete tree where the key of every child is less than or equal to the key of its parent.  This means that The largest element is at the root. We show here a binary tree, but k-way heaps are possible.
+
+Unlike many other trees, this tree does not use pointers.  The elements are stored in an array.  The parent-child relationships for the tree are implicit in the array, with the children of every A[i] being A[2i] and A[2i+1]. The  root of the tree is A[1].
+    
+

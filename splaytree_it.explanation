@@ -1,0 +1,10 @@
+The splay tree is a kind of balanced tree used for searching.  Balance is introduced by the local splay operation.  Every time an item is inserted into the splay tree and every time an item is searched for in a splay tree, the item is splayed to the root.
+
+The splay operation is a sequence of edge rotations, usually a double rotation.  Splaying accessed items to the root means that more frequently accessed items will tend to be in the upper levels of the tree, and will require shorter access time.  In addition, the process of splaying an item to the root usually introduces branching into the tree, making the tree bushy and reducing the overall access time.
+
+The splay tree shown here is a top-down recursive splay.  The search path for the item being inserted or searched for is found, as in a binary search tree.  As we traverse the search path, a series of double rotation is performed.  If we travel an odd number of levels, then the bottom rotation is a single rotation.
+
+While the splay tree is not always perfectly balanced, amortized analysis shows that the time over a series of access is good, at O(n+m)log(n+m) for a series of m search or insert operations in an n-node tree. 
+
+D. Sleator and R.E. Tarjan, Journal of the ACM 32, 1985.
+

@@ -1,0 +1,10 @@
+$~Radix Trie Iterative
+    //Build Radix Trie
+    Initialize(RadixTree)#1a#Initialise Tree.
+    $~While(Data Items)#2a#Insert items into the tree, one by one
+        Insert(Trie, DataItem)#3a
+    @
+
+    //Search#4a
+    RadixTrie-Search(Trie, DataItem)#5a#Search for items in the tree, based on their key.
+@

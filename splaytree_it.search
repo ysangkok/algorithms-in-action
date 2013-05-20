@@ -1,0 +1,81 @@
+$~//Search
+SplaySearch(STree,Data)#5
+$~{
+    if(Splaytree is empty)#5.1#If we have proceeded all the way along the search path to a null node without finding the item we are searching for, then it is not in the tree.
+    $~{
+        Not Found#5.1.1#If we have proceeded all the way along the search path to a null node without finding the item we are searching for, then it is not in the tree.
+        Return#5.1.2#If we have proceeded all the way along the search path to a null node without finding the item we are searching for, then it is not in the tree.
+    @
+    }
+    $if (Successful search) Return SplayT#Success#If the item has been found, we note that start returning from the recursive calls.
+    if (dataItem == SplayTreeData)#Found.1#Where the item being searched for is the root of the current tree, there is no need to rotate. We simply return the unrotated tree, which already has the search key as its root.
+    $~{
+        Found#Found.1.1#Where the item being searched for is the root of the current tree, there is no need to rotate. We simply return the unrotated tree, which already has the search key as its root.
+        return STree#Found.1.2#Success|Where the item being searched for is the root of the current tree, there is no need to rotate. We simply return the unrotated tree, which already has the search key as its root.
+    @
+    }
+    else if (dataItem == SplayTree Child Data)#Found.2#Where the item being searched for is the child of the root of the current tree, we perform a single rotation, to get the item to the root, and return this rotated subtree.
+    $~{
+        Found#Found.2.1#Where the item being searched for is the child of the root of the current tree, we perform a single rotation, to get the item to the root, and return this rotated subtree.
+        SplayT = Rotate(SplayT)#Found.2.2#Where the item being searched for is the child of the root of the current tree, we perform a single rotation, to get the item to the root, and return this rotated subtree.
+        Return rotated sub-tree#Found.2.3#Success|Where the item being searched for is the child of the root of the current tree, we perform a single rotation, to get the item to the root, and return this rotated subtree.
+    @
+    }
+    @
+    switch (path to grandchild)#5.2#We search for the item in the tree, much like in a binary search tree. Unlike the binary search tree, we search two levels at a time and we perform rotations as we proceed. Thus a search will both search and also alter the structure of the splay tree.
+    $~{
+        $case TERMINAL: // no grandchild#TERMINAL#The terminal case will happen at the last level of a tree with an odd number of levels. The current tree has a child, but no grand child.
+        $~{
+            Not Found#TERMINAL.1#The terminal case will happen at the last level of a tree with an odd number of levels. The current tree has a child, but no grand child.
+            return Splay#TERMAINAL.2#TERMINAL|The terminal case will happen at the last level of a tree with an odd number of levels. The current tree has a child, but no grand child.
+        @
+        }
+        @
+        $case ZIG-ZIG:#ZIGZIG|ZIGZIG.4#In the Zig Zig case, the links to child and grand child run in the same direction, ie either child in right child of parent AND grandchild is right child of child, or vice verse.
+        $Search Grand Child and Double Rotate#ZIGZIG.1|ZIGZIG.3.1|ZIGZIG.3.2|ZIGZIG.3.3|ZIGZIG.3.4#In both the zigzag and zigzig case, a recursive call is made to search the item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+        if (dataItem < SplayTreeData) // left-left#ZIGZIG.2#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be searched and keys in the seach tree. The direction of the rotation that follow the next recursive call to search are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        $~{
+            SplayT LL GrandChild = Search(SplayT LL GrandChild, Data)#ZIGZIG.2.1#Recursive call to search into splay tree rooted at grand child of current splay tree.
+            SplayT = RotateRight(SplayT)#ZIGZIG.2.2#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            SplayT = RotateRight(SplayT)#ZIGZIG.2.3#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            Return SplayT#ZIGZIG.2.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        }
+        else#ZIGZIG.3#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be searched and keys in the seach tree. The direction of the rotation that follow the next recursive call to search are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        @
+        $~{
+            SplayT GrandChild = Search(SplayT GrandChild, Data)|SplayT RR GrandChild = Search(SplayT RR GrandChild, Data)#ZIGZIG.3.1#ZIGZIG|Recursive call to search into splay tree rooted at grand child of current splay tree.
+            Rotate (SplayT)|SplayT = RotateLeft(SplayT)#ZIGZIG.3.2#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            Rotate (SplayT Child)|SplayT = RotateLeft(SplayT)#ZIGZIG.3.3#In the zigzig case, first rotate the link between the parent and child, then the link between the child and grand child.
+            Return Rotated sub-tree|return SplayT#ZIGZIG.3.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        }
+        @
+        Search Grand Child and Double Rotate| #ZIGZIG.4#In both the zigzag and zigzig case, a recursive call is made to search the item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+
+        $case ZIG-ZAG:#ZIGZAG|ZIGZAG.4#In the Zig-Zag case, the links to the child and the grand child run in opposite direction. ie either the child is right child of the parent and the grand child is the left child of the child, or vice versa.
+        $Search Grand Child and Double Rotate#ZIGZAG.1|ZIGZAG.3.1|ZIGZAG.3.2|ZIGZAG.3.3|ZIGZAG.3.4#In both the zigzag and zigzig case, a recursive call is made to search the item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+        if (dataItem < SplayTreeData) // left-right#ZIGZAG.2#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be searched and keys in the seach tree. The direction of the rotation that follow the next recursive call to search are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        $~{
+            SplayT LR GrandChild = Search(SplayT LR GrandChild, Data)#ZIGZAG.2.1#Recursive call to search into splay tree rooted at grand child of current splay tree.
+            SplayT LeftChild = RotateLeft(SplayT LeftChild)#ZIGZAG.2.2#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            SplayT = RotateRight(SplayT)#ZIGZAG.2.3#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            return SplayT#ZIGZAG.2.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        }
+        else#ZIGZAG.3#Search proceeds down the next two levels. As for binary search tree, the direction depends on the comparison between the key of the item to be searched and keys in the seach tree. The direction of the rotation that follow the next recursive call to search are adjusted so that the root of the rotated tree is the node that was the grandchild of the unrotated tree.
+        @
+        $~{
+            SplayT GrandChild = Search(SplayT GrandChild, Data)|SplayT RL GrandChild = Search(SplayT RL GrandChild, Data)#ZIGZAG.3.1#ZIGZAG|Recursive call to search into splay tree rooted at grand child of current splay tree.
+            Rotate(SplayT Child)|SplayT RightChild = RotateRight(SplayT RightChild)#ZIGZAG.3.2#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            Rotate(SplayT)|SplayT = RotateLeft(SplayT)#ZIGZAG.3.3#In the zig-zag case first rotate the link between the child and grandchild, then the link between the parent and child.
+            Return Rotated sub-tree|Return SplayT#ZIGZAG.3.4#Return from this recursive call after the rotation. Rotated subtree being returned is rooted at what was previously the grand child of the root of the unrotated subtree.
+        @
+        }
+        @
+        Search Grand Child and Double Rotate| #ZIGZAG.4#In both the zigzag and zigzig case, a recursive call is made to search the item into the splay tree rooted at the grand child of the current treee. On return from the recursive call, two rotation are made.
+    @
+    }
+@
+}
+@

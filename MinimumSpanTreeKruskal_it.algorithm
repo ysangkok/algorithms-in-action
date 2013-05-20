@@ -1,0 +1,16 @@
+$~KruskalMinSpanTree()#1
+$~{#1.1
+    $Initialise #2 
+        $Initialise edge counter#2.1
+            edge_counter = 0; #2.1.1#2.1|
+        @
+        $Initialise Priority Queue #2.2
+            InitPriorityQueue()#2.2.1#2.2|
+        @
+        \#2.3#2|
+    @
+    
+    BuildingTree()#4
+@
+}#7
+@

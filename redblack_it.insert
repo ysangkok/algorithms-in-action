@@ -1,0 +1,46 @@
+$~Insert(RBtree,DataItem)#3
+$~{
+	$Initialise#3.1#Insert into the designated Red Black Tree.
+		Ptr=Parent=GrandParent=Root;#3.1.1#3.1|Start our search for the insertion point at the Root of the tree.
+	@
+	$Find Insertion Point#3.2.0#Find the right place to insert the new item.
+		$~While(Ptr Not Null) {#3.2#Always insert at leaves, so advance until a null pointer is reached.
+			$Split 4-Nodes#3.2.1#Splitting 4-Nodes along the way simplifies insertion.
+				colour(Ptr->children) = BLACK#3.2.1.1#Splitting 4-Nodes in a Red Black tree is accomplished simply by flipping colours.
+				if (Ptr not root) colour(Ptr) = RED;#3.2.1.3#Splitting 4-Nodes in a Red Black tree is accomplished simply by flipping colours.
+				$Balance#3.2.1.4#The Red-Black tree is a balanced tree. Checking that the Red-Black condition is met after every insertion, and taking remedial action if the Red-Black condition is not met, is what keeps the tree balanced.
+					$~if(colour(Parent)==RED) {#3.2.1.4.1#The Red-Black condition is that no two consecutive links can be Red. That is, a node and its parent cannot both be Red. If the Red-Black condition is violated, balance is restored ensuing one or two rotation operations.  
+						if(zigzag) rotate(Parent,Ptr);#3.2.1.4.2#In a zigzag case, 2 rotations are made, the first rotation corrects the zigzag violation to a zig-zig violation.
+						rotate(GrandParent,Parent);#3.2.1.4.3#The second rotation rotation of a zigzag violation or the only rotation of a zigzig violation, reduces the depth of the local subtree by one level.
+					@
+					}#3.2.1.4.4#3.2.1.4|3.2.1|
+				@
+			@
+			$Advance Ptrs#3.2.2#Follow the next link along the path.
+				Grandparent = Parent;#3.2.2.1#Search in a Red Black tree is like in a Binary Search Tree. During insertion, an additional grandparent pointer is kept, which is used during rotation.
+				Parent = Ptr;#3.2.2.2#Search in a Red Black tree is like in a Binary Search Tree. During insertion, an additional grandparent pointer is kept, which is used during rotation.
+				if(less(DataItem,ptr->item)) Ptr = Ptr->lchild;#3.2.2.3#3.2.2|Search in a Red Black tree is like in a Binary Search Tree. During insertion, an additional grandparent pointer is kept, which is used during rotation.
+				else Ptr = Ptr->rchild;#3.2.2.4#3.2.2|Search in a Red Black tree is like in a Binary Search Tree. During insertion, an additional grandparent pointer is kept, which is used during rotation.
+			@
+		@
+		}#3.2.0.1#3.2.0|	 
+	@
+	$Link New DataItem#3.3#Make the link that connects the new item into the tree.
+		$~if(less(DataItem,Parent->Key))#3.3.1#New Items are linked into the tree as in a Binary Search Tree. All new items are Red, that is they are added to an existing 2-Node or 3-Node.
+			Parent->lchild = newnode(DataItem,RED);#3.3.2#3.3|New Items are linked into the tree as in a Binary Search Tree. All new items are Red, that is they are added to an existing 2-Node or 3-Node.
+		@
+		$~else#3.3.3#New Items are linked into the tree as in a Binary Search Tree. All new items are Red, that is they are added to an existing 2-Node or 3-Node.
+			Parent->rchild = newnode(DataItem,RED);#3.3.4#3.3|New Items are linked into the tree as in a Binary Search Tree. All new items are Red, that is they are added to an existing 2-Node or 3-Node.
+		@
+	@
+	$Balance#3.4#The Red-Black tree is a balanced tree. Checking that the Red-Black condition is met after every insertion, and taking remedial action if the Red-Black condition is not met, is what keeps the tree balanced.	
+		$~if(colour(Parent)==RED) {#3.4.1#The Red-Black condition is that no two consecutive links can be Red. That is, a node and its parent cannot both be Red. If the Red-Black condition is violated, balance is restored ensuing one or two rotation operations.
+			if(zigzag) rotate(Parent,Ptr);#3.4.2#In a zigzag case, 2 rotations are made, the first rotation corrects the zigzag violation to a zig-zig violation.
+			rotate(GrandParent,Parent);#3.4.3#3.4.1|The second rotation rotation of a zigzag violation or the only rotation of a zigzig violation, reduces the depth of the local subtree by one level.
+		@
+		}#3.4.4#3.4|
+	@
+
+@
+}#3.5
+@

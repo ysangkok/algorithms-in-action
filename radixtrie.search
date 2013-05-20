@@ -1,0 +1,22 @@
+$~//Search Radix Trie
+    $~Trie-Search(Trie, Data Item, Level)#5
+    {
+        if(Trie is NULL) return NOT IN TRIE#5.1#If the Trie is empty, then the item is not in the trie.
+
+        $~if(Trie is Leaf)#5.2#If we have followed the correct search path for the item, then the leaf we reach will be the item if it is in the trie. If the leaft contains another, then our item is not in the trie.
+            $~if(Trie Key == Item Key)#5.2.1#If we have followed the correct search path for the item, then the leaf we reach will be the item if it is in the trie. 
+                return FOUND#5.2.1.1#If we have followed the correct search path for the item, then the leaf we reach will be the item if it is in the trie. 
+            @
+            else return NOT IN TRIE#5.2.2#If the leaft contains another, then out item is not in the trie.
+        @
+
+        // non-null non-leaf, i.e. InternalNode#Empty#As long as we are not at a leaf, we continue down the search path, tracing left or right at each level depending on the value for the relevant bit. Each recursive call examines the next bit and goes down one more level in the trie.
+        $~if(Item bit at Level == 0)#5.3#As long as we are not at a leaf, we continue down the search path, tracing left or right at each level depending on the value for the relevant bit. Each recursive call examines the next bit and goes down one more level in the trie.
+            return Trie-Search(Trie Left Child, Item, Level+1)#5.3.1#As long as we are not at a leaf, we continue down the search path, tracing left or right at each level depending on the value for the relevant bit. Each recursive call examines the next bit and goes down one more level in the trie.
+        @
+        $~else // bit is 1#5.4#As long as we are not at a leaf, we continue down the search path, tracing left or right at each level depending on the value for the relevant bit. Each recursive call examines the next bit and goes down one more level in the trie.
+            return Trie-Search(Trie Right Child, Item, Level+1)#5.4.1#As long as we are not at a leaf, we continue down the search path, tracing left or right at each level depending on the value for the relevant bit. Each recursive call examines the next bit and goes down one more level in the trie.
+        @
+    @
+    }
+@

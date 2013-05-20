@@ -1,0 +1,111 @@
+$~//Binary Search Tree Delete
+
+BST-Delete(BinSearchTree, DataItem)#4.0#Delete the DataItem from the Binary Search Tree
+$~{
+    	$Initialise Ptr to Root#4.1#
+		Ptr=Parent=Root;#4.1.1#4.1|Initialise pointers to root for searching
+    	@
+    	$Search for DataItem to be removed#4.2
+		// Search for the DataItem
+		while(!equal(DataItem, Ptr->item))#4.2.1#We know DataItem will be found, so no need to test for null		
+		$~{
+			Parent = Ptr;#4.2.1.1#Advances parent pointer along search path
+			$~if(less(DataItem, Ptr->item)#4.2.1.2#Compare DataItem and data pointed to by the pointer
+				Ptr = Ptr->lchild;#4.2.1.2.1#Item key is less, so follow the left child on the search path
+			@
+			$~else#4.2.1.3#Item is greater than or equal to data
+				Ptr = Ptr->rchild;#4.2.1.3.1#Item greater or equal to, so follow the right child on the search path
+			@		
+		@
+		}#4.2.2
+		OldParent = Parent;#4.2.3
+		Parent = DataItemPtr = Ptr;#4.2.4#4.2|
+	@
+	$Replace DataItem with successor or predecessor#4.3   
+		$~#
+		$If there is inorder successor replace with inorder sucessor#4.3.2#4.3|
+			$~#
+			$Find leftmost node of right subtree#4.3.2.3#Leftmost node of right subtree is inorder successor.
+				Ptr = Ptr->rchild;#4.3.2.3.1#Right subtree.
+				while (Ptr->lchild not null)#4.3.2.3.2#Find leftmost node.
+				$~{
+					Parent = Ptr;#4.3.2.3.2.1
+					Ptr = Ptr->lchild;#4.3.2.3.2.2
+				@
+				}#4.3.2.3.3#4.3.2.3|
+			@
+			$Replace DataItem with successor#4.3.2.4
+				if there are left nodes in right subtree#4.3.2.4.1#Unless successor is the right child of node to be deleted, there will be left nodes in right subtree.
+				$~{
+					Parent->lchild = Ptr->rchild;#4.3.2.4.1.1#"Release" the successor from the tree by bypassing it. This prepares for moving the node at the next step
+					Ptr->lchild = DataItemPtr->lchild;#4.3.2.4.1.2#Replace the DataItem with the 'released' successor
+					Ptr->rchild = DataItemPtr->rchild;#4.3.2.4.1.3#4.3.2.4|Replace the DataItem with the 'released' successor
+				@
+				}
+				else #4.3.2.4.2#In this case there are no left children of the successor that needs to be linked.
+				$~// Successor is right child of the node to be deleted
+					//Simply replace the DataItem
+					Ptr->lchild = DataItem->lchild;#4.3.2.4.2.1#4.3.2.4|
+				@				
+			@
+			$Link the replacement back to the tree#4.3.2.5#4.3.2|
+				$~if NodeToDelete is root #4.3.2.5.1#This is a special case where the deleted node was the root. No parent, but we need to replace the root.
+					root = Ptr;#4.3.2.5.1.1#4.3.2.5|
+				@
+				$~else if NodeToDelete is a left child#4.3.2.5.2
+					OldParent->lchild = Ptr;#4.3.2.5.2.1#4.3.2.5|
+				@
+				$~else //if NodeToDelete is a right child#4.3.2.5.3
+					OldParent->rchild = Ptr;#4.3.2.5.3.1#4.3.2.5|
+				@
+			@
+			#
+			@
+		@
+		$Else replace with inorder predecessor#4.3.1#4.3|
+			$~#
+			$Find rightmost node of left subtree#4.3.1.3#Rightmost node of left subtree is inorder predecessor.
+				Ptr = Ptr->lchild;#4.3.1.3.1#Left subtree.
+				while (Ptr->rchild not null)#4.3.1.3.2#Find rightmost node.
+				$~{
+					Parent = Ptr;#4.3.1.3.2.1
+					Ptr = Ptr->rchild;#4.3.1.3.2.2
+				@
+				}#4.3.1.3.3#4.3.1.3|
+			@
+			$Replace DataItem with predecessor#4.3.1.4
+				if there are right nodes in the left subtree#4.3.1.4.1#Unless predecessor is the left child of the node to be deleted, there will be right nodes in left subtree 
+				$~{
+					Parent->rchild = Ptr->lchild;#4.3.1.4.1.1#"Release" the predecessor from the tree by passing it. This prepares for moving the node at the next step.
+					Ptr->lchild = DataItemPtr->lchild;#4.3.1.4.1.2#Replace the DataItem with the 'released' predecessor.
+					Ptr->rchild = DataItemPtr->rchild;#4.3.1.4.1.3#4.3.1.4|Replace the DataItem with the 'released' predecessor.
+				@
+				}
+				// else predecessor is left child of the node to be deleted#4.3.1.4.2#We know that the node to be deleted has no right subtree, since there is no inorder successor. Now we know that the replacement node will be the nodes' left child, and the replacement node has no right children. To be symmetric with the inorder sucessor case, we could write the following code. However, as both of these are null, this code is unnecessary. 
+				$~//{				
+					//Ptr->rchild = DataItem->rchild;#4.3.1.4.2.1#4.3.1.4|
+				@
+				//}
+			@
+			$Link the replacement back to the tree#4.3.1.5#4.3.1|
+				$~if NodeToDelete is root#4.3.1.5.1#This is a special case where the deleted node was the root. No parent, but we need to replace the root
+					root = Ptr;#4.3.1.5.1.1#4.3.1.5|
+				@
+				$~else if NodeToDelete is left child#4.3.1.5.2
+					OldParent->lchild = Ptr;#4.3.1.5.2.1#4.3.1.5|
+				@
+				$~else //if NodeToDelete is right child#4.3.1.5.3
+					OldParent->rchild = Ptr;#4.3.1.5.3.1#4.3.1.5|
+				@
+			@
+			#
+			@
+		@
+		#
+		@
+	@
+@
+}#4.0.1
+@
+
+

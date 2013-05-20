@@ -1,0 +1,27 @@
+$~ABR-Ricerca(AlberoBinarioRicerca, Elemento)#3.0
+$~{
+    $Inizializza Ptr alla Radice#3.1#Inizia la ricerca partendo dalla Radice.
+        Ptr = Radice;#3.1.1#3.1|Assegna al puntatore di ricerca Ptr il noto identificato dalla Radice.
+    @
+    While (Ptr Non è Null)#3.2#Continua a cercare fino a che non supera le foglie e arriva ad un valore Null.
+    $~{
+        $~if(Ptr->chiave==Elemento)#3.2.1#Effettua un confronto per vedere se la chiave corrisponde.
+            return TROVATO;#3.2.1.1#la chiave corrisponde, l'Elemento è stato trovato nell'albero.
+        @
+        else#3.2.2
+        $Avanza Ptr#3.2.2.1#Se l'Elemento non è stato trovato, continua ad avanzare il puntatore.
+            {
+            $~if(Elemento < Ptr->chiave)#3.2.2.1.2#Confronta l'Elemento con la chiave del nodo identificato dal puntatore di ricerca
+                Ptr = Ptr->figlioS#3.2.2.1.2.1#3.2.2.1|L'Elemento è minore, dunque la ricerca procede seguendo il figlio sinistro nel cammino di ricerca.
+            @
+            $~else#3.2.2.1.3#L'Elemento è maggiore o uguale alla chiave del nodo identificato dal puntatore di ricerca.
+                Ptr = Ptr->figlioD#3.2.2.1.3.1#3.2.2.1|L'Elemento è maggiore o uguale alla chiave, dunque la ricerca procede seguendo il figlio destro nel cammino di ricerca.
+            @
+            }
+        @
+    @
+    }
+    return NONTROVATO#3.3.3#Seguendo il cammino di ricerca l'Elemento non è stato trovato, quindi non è presente nell'albero.
+@
+}
+@

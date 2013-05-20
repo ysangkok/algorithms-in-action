@@ -1,0 +1,67 @@
+$~//Insert
+SplayInsert(SplayTree,DataItem)#3
+$~{
+	$~if (SplayTree is empty)#3.1
+		Return new SplayTree containing DataItem#3.1.1
+	@
+	$BST Insert(DataItem)#3.2#Splay Trees use binary searh tree ordering so the first step of insertion is like insertion to a binary search tree.
+	$~#
+		$Initialise Ptr to Root#3.2.1
+			Ptr = Parent = Root;#3.2.1.1#3.2.1|
+		@
+		$Find Location for New DataItem#3.2.2
+			While (Ptr Not Null)#3.2.2.1
+			$~{
+				Parent = Ptr;#3.2.2.1.1
+				$~if (less(DataItem, ptr->Item))#3.2.2.1.2
+					Ptr = Ptr->lchild;#3.2.2.1.3
+				@
+				$~else#3.2.2.1.4
+					Ptr = Ptr->rchild;#3.2.2.1.5
+				@
+			@
+			}#3.2.2.2#3.2.2|
+		@
+		$Link New DataItem#3.2.3
+			NewItem = newnode(DataItem);#3.2.3.1
+			$~if(less(DataItem, Parent->Key))#3.2.3.2
+				Parent->lchild = NewItem;#3.2.3.3
+			@
+			$~else#3.2.3.4
+				Parent->rchild = NewItem;#3.2.3.5
+			@	
+			Node = NewItem;#3.2.3.6#3.2.3|3.2|
+		@
+	@
+	#
+	@
+	$Splay new node to root#3.3#The splay operation is performed after every insertion and after every search. The operation uses a series of rotation to move a node to the root.
+	$~#
+		$Execute double rotateion#3.3.1
+                        while (Node not Root && Parent not Root)#3.3.1.1#Double rotations require that the node have a grand parent.
+                        $~{
+                                $Zig-Zig case#3.3.1.1.1#Node and Parent are both right (or left) children.
+                                        Rotate Parent and GrandParent#3.3.1.1.2
+                                        Rotate Node and Parent#3.3.1.1.3#3.3.1.1.1|
+                                @
+                                $Zig-Zag case#3.3.1.1.4#If Node is a right child, its parent is a left child, and vice versa.
+                                        Rotate Node and Parent #3.3.1.1.5
+                                        Rotate Node and GrandParent#3.3.1.1.6#3.3.1.1.4|
+                                @
+                        @
+                        }#3.3.1.2#3.3.1|	
+		@		
+		$Possibly execute one simple rotation#3.3.2
+			if (Node not Root)#3.3.2.1#The final single rotation is only needed if the node is not at the root yet.
+			$~{
+				Rotate Node and Parent(Root)#3.3.2.1.1
+			@
+			}#3.3.2.2#3.3.2|3.3|
+		@
+	@
+	#
+	@
+@
+}#3.END
+@
+

@@ -1,0 +1,51 @@
+$~Quicksort ()|Quicksort (A, sinistra, destra)#1#Poichè le chiamate ricorsive funzioneranno su un sottoarray, dobbiamo specificare l'inizio e la fine dell'array attraverso i valori sinistra e destra.
+$~{#2
+	$~if (destra > sinistra) {#3#Condizione di terminazione
+		$Sceglie la Partizione P#4|1#Ci sono vari modi di scegliere l'elemento pivot.
+			P = A[destra];#4.1#4|Il metodo più semplice di scegliere un elemento pivot (anche se potenzialmente pericoloso) è quello di usare l'elemento più a destra dell'array.
+		@
+		$Partiziona l'Array su P#5|1#E' in questo punto in cui viene svolta la maggior parte del lavoro del Quicksort.  Partiamo da un array non ordinato, e terminiamo con un array che contiene un elemento pivot posizionato nella sua posizione definitiva e due partizioni, una contenente soltanto elementi minori o uguali all'elemento pivot, e l'altra contenente soltanto elementi maggiori o uguali all'elemento pivot.
+			$Posiziona gli indici i e j, rispettivamente ai valori sinistra e destra;#5.1#Gli indici sono posti ai due lati dell'array, in modo da poter effettuare un preincremento e un predecremento
+				i = sinistra - 1;#5.1.1#I puntatatori sono posizioni agli estremi dell'array.  Siccome vogliamo poter effettuare un preincremento e un predecremento, il puntatore i viene posizionato a sinistra-1.  Il puntatore j è invece posizionato sul valore destra, invece che destra+1, in quanto il pivot è l'elemento A[destra], e non fa parte della partizione.
+				j = destra;#5.1.2#5.1|
+			@
+			$~Loop {#5.2#La condizioni di terminazione del ciclo è leggermente complessa.
+				$while (A[i] < P) continua ad incrementare i;#5.2.1#Fintanto che gli elementi alla sinistra sono minori dell'elemento pivot, possiamo lasciarli dove sono. Ci arrestiamo sugli elementi maggiori o uguali.  Anche se in teoria potremmo saltare anche gli elementi uguali, se scambiamo anche gli elementi uguali l'algoritmo risulta più robusto per array che contengono molti elementi uguali.
+					$~While (A[++i] < P){#5.2.1.1#5.2.1|Fintanto che gli elementi alla sinistra sono minori dell'elemento pivot, possiamo lasciarli dove sono. Ci arrestiamo sugli elementi maggiori o uguali.  Anche se in teoria potremmo saltare anche gli elementi uguali, se scambiamo anche gli elementi uguali l'algoritmo risulta più robusto per array che contengono molti elementi uguali.
+						// il corpo del ciclo è vuoto;#5.2.1.2
+					@
+					}
+				@
+				$while (A[j] > P) continua a decrementare j;#5.2.2#Fintanto che gli elementi alla destra sono maggiori dell'elemento pivot, possiamo lasciarli dove sono. Ci arrestiamo sugli elementi minori o uguali.  Anche se in teoria potremmo saltare anche gli elementi uguali, l'algoritmo risulta in questo modo più robusto per array che contengono molti elementi uguali se scambiamo anche gli elementi uguali.
+					$~While (A[--j] > P){#5.2.2.1#5.2.2|Fintanto che gli elementi alla sinistra sono maggiori dell'elemento pivot, possiamo lasciarli dove sono. Ci arrestiamo sugli elementi minori o uguali.  Anche se in teoria potremmo saltare anche gli elementi uguali, se scambiamo anche gli elementi uguali l'algoritmo risulta più robusto per array che contengono molti elementi uguali.
+						// il corpo del ciclo è vuoto;#5.2.2.2
+					@
+					}
+				@
+				$if (gli indici si incrociano) exit Loop #5.2.3#Gli indici si incrociano nel momento in cui abbiamo elaborato l'intero array.
+					if (i >= j) exit Loop;#5.2.3.1#5.2.3|Gli indici si incrociano nel momento in cui abbiamo elaborato l'intero array.
+                                @
+				scambia(A[i] , A[j]); // Fine degli spostamenti#5.2.5.1#5.2|Entrambi gli indici si sono arrestati, in quanto puntano ad un elemento che deve trovarsi dal lato opposto della partizione.   Scambiando i due elementi puntati, ognuno di loro si troverà dal lato corretto.
+			@
+			}#5.3
+			$Metti P nella sua posizione finale#5.4
+				scambia(A[i], A[destra]);#5.4.1#5.4|5|3|
+			@
+		@
+		$Quicksort PrimaMetà#6|1#La prima chiamata ricorsiva di solito lavora sugli elementi minori dell'elemento pivot.  Tuttavia l'ordine non ha importanza, e alcune implementazioni lavorano prima sulla partizione più grande.
+			Quicksort (A, sinistra, i - 1);#6.1#6|
+		@
+		$Quicksort SecondaMetà#7|1#Seconda chiamata ricorsiva a Quicksort.
+			Quicksort (A, i + 1, destra);#7.1#7|
+		@
+	@
+	}
+@
+}#8
+@
+
+
+
+
+
+

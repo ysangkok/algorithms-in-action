@@ -1,0 +1,6 @@
+$~SkipList-Delete(SkipList, DataItem)#7.0
+$~{
+    Delete the data item from the skiplist
+@
+}
+@

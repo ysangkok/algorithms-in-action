@@ -1,0 +1,10 @@
+The digitalsearch tree is the simplest of the radix search trees. Although the digital search tree is similar to a binary search tree, the search path is determined by the value of an individual bit in the key, rather than by an entire key comparison.
+
+The first item it inserted at the root of the tree.  For the next item, we look at the most significant bit (MSB): if the MSB is 0, then we insert this item as the left child of the root; if it is 1, then we insert the item as the right child of the root.
+
+For subsequent insertions, we may need to look at more bits.  Starting at the root of the tree, we look at the MSB and branch according to its value.  If there is a already a node at the next level, then we look at the next bit, and branch according to it.  We keep going until we reach a null node, at which point we can insert our new item.
+
+We follow a similar procedure for searching, looking at one bit at a time as we go down the tree.  However, the key we are searching for may lie anywhere along the search path, we need to do a full key comparison at each node we encounter as we traverse the search path. If we get to the end of the search path without finding the key, then we know it is not in the tree.
+
+For fixed length keys, the path length is limited to the number of bits in the key.  Digital search trees have the advantage of naturally balancing trees, without extra implementation effort. However, they also require a key comparison at each level during search, which is wasteful.
+

@@ -1,0 +1,39 @@
+$~Insert(SkipList, DataItem)#3.1.0
+$~{
+    $Initialise#3.1.1#Start search at the front of the list.
+            Ptr = Head;#3.1.1.1#3.1.1|Start search at the front of the list.
+    @
+    $Find Location for DataItem#3.1.2#Search Skiplist to find the correct insertion point.
+        $Following Longest Links First#3.1.2.1#Long links allow us to cover the list most efficiently.
+        for(level = curr_max ; level>=0; level--)#3.1.2.1.1#3.1.2.1|Long links cover the list most efficiently. So start with the longest links, go as far as possible, and drop down to the next smallest link when no more progress can be made.
+        @
+        $~{#3.1.2.2
+           $Record positions just before insertion point#3.1.2.2.1
+                While(Next Not at List End AND NextData < DataItem)#3.1.2.2.1.1#As long as item being inserted is less than item in list, keep moving forward in the list.
+                $~{#3.1.2.2.1.2
+                        Advance Ptr;#3.1.2.2.1.2.1#As long as item being inserted is less than item in list, keep moving forward in the list.
+                @
+                }#3.1.2.2.1.3
+                Save Ptr to previous node#3.1.2.2.1.4#3.1.2.2.1|3.1.2.2|When the insertion point has been found, save the position of the preceding node, in order to link in the new node.
+           @
+        @
+        }#3.1.2.3#3.1.2|
+    @
+    $Link DataItem into SkipList#3.1.3#Make a new node with the data item and a probabilistically determined number of links.
+        $Decide on number of levels for new node#3.1.3.1#Every node has at least one link, which goes to the very next node. That is, the probability of creating a link at the lowest level is 1.0. Links that cover longer distances are created with lower probabilities. The more distance covered, the lower the probability of creation. We keep generating random numbers between 0 and 1.0. As long as the number is below the probability for creating a link at that level, we add a link.
+                Probablistically get NumLevels#3.1.3.1.1#3.1.3.1|Every node has at least one link, which goes to the very next node. That is, the probability of creating a link at the lowest level is 1.0. Links that cover longer distances are created with lower probabilities. The more distance covered, the lower the probability of creation. We keep generating random numbers between 0 and 1.0. As long as the number is below the probability for creating a link at that level, we add a link.
+        @
+        $Create NewNode#3.1.3.2#Create new node with data item and the correct number of links.
+                NewNode = node(DataItem, NumLevels)#3.1.3.2.1#3.1.3.2|Create new node with data item and the correct number of links.
+        @
+        $Link at all level#3.1.3.3#The appropriate links need to be made at each level.
+        for(j=0; j<NumLevels; j++)#3.1.3.3.1#The appropriate links need to be made at each level.
+        $~{#3.1.3.3.2
+            Make links#3.1.3.3.2.1#The appropriate links need to be made at each level.
+        @
+        }#3.1.3.3.3#3.1.3.3|3.1.3|3.1.0
+        @
+    @
+@
+}
+@
