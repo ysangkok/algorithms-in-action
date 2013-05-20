@@ -90,6 +90,7 @@ function initDefaultLang()
 	if(!cookieLang)
 	{
 		cookieLang = getDefaultBrowserLang();
+		if (typeof languages[cookieLang] === "undefined") cookieLang = "en";
 		selectLang(cookieLang);	
 	}
 	else
@@ -97,15 +98,6 @@ function initDefaultLang()
 		updateSelectedLang(cookieLang);
 	}
 }		
-	
-	
-function checkDefaultBrowserLang()
-{
-	var userLang = (navigator.language) ? navigator.language : navigator.userLanguage; 
-	return userLang.toLowerCase();
-}
-
-	
 //copy from previous code 
 function getCookieVal (offset)
 { 
