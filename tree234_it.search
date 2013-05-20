@@ -1,0 +1,50 @@
+$~234-Search(234Tree,DataItem)#4
+$~{
+	$Initialise#4.1#Start search at Root of the designated tree.
+		Ptr = Root;#4.1.1#4.1|Start search at Root of the designated tree.
+	@
+	$~While (Ptr Not Null) {#4.2#The search may continue to the bottom of the tree.
+		if(Ptr->Key==DataItem) return FOUND;#4.2.1#Stop once the key sought for has been found.
+		$~else#4.2.2#Otherwise keep searching, going the next level down the tree.
+			$Advance Ptrs#4.2.2.1#Otherwise keep searching, going the next level down the tree.
+				$2-Node case#4.2.2.1.1#The details of advancing pointers during search are different for the different kinds of nodes.
+					$~if (less(DataItem, Ptr->Key))#4.2.2.1.1.1#The 2-Node case is like a Binary Search Tree.
+						Ptr = Ptr->lchild;#4.2.2.1.1.1.1#4.2.2.1|4.2.2.1.1|The 2-Node case is like a Binary Search Tree.
+					@
+					$~else#4.2.2.1.1.2#The 2-Node case is like a Binary Search Tree.
+						Ptr = Ptr->rchild;#4.2.2.1.1.2.1#4.2.2.1|4.2.2.1.1|The 2-Node case is like a Binary Search Tree.
+					@
+				@
+				$3-Node case#4.2.2.1.2#The details of advancing pointers during search are different for the different kinds of nodes.
+					$~if (less(DataItem, LeftNode->Key))#4.2.2.1.2.1#If item is less than leftmost node key, follow the left pointer.
+						Ptr = Ptr->lchild;#4.2.2.1.2.1.1#4.2.2.1|4.2.2.1.2|If item is less than leftmost node key, follow the left pointer.
+					@
+					$~else if (less(DataItem,RightNode->Key))#4.2.2.1.2.2#If item is more than leftmost node key, and less than rightmost node key, follow then middle pointer.
+						Ptr = Ptr->mchild;#4.2.2.1.2.2.1#4.2.2.1|4.2.2.1.2|If item is more than leftmost node key, and less than rightmost node key, follow then middle pointer.
+					@
+					$~else#4.2.2.1.2.3#If item is greater than rightmost node key, follow the right pointer.
+						Ptr = Ptr->rchild;#4.2.2.1.2.3.1#4.2.2.1|4.2.2.1.2|If item is greater than rightmost node key, follow the right pointer.
+					@
+				@
+				$4-Node case#4.2.2.1.3#The details of advancing pointers during search are different for the different kinds of nodes.
+					$~if (less(DataItem, LeftNode->Key))#4.2.2.1.3.1#If item is less than leftmost node key, follow the left pointer.
+						Ptr = Ptr->lchild;#4.2.2.1.3.1.1#4.2.2.1|4.2.2.1.3|If item is less than leftmost node key, follow the left pointer.
+					@
+					$~else if (less(DataItem, MiddleNode->Key))#4.2.2.1.3.2#If item is between leftmost ode and middle node key, follow the middle-left pointer.
+						Ptr = Ptr->mlchild;#4.2.2.1.3.2.1#4.2.2.1|4.2.2.1.3|If item is between leftmost ode and middle node key, follow the middle-left pointer.
+					@
+					$~else if (less(DataItem, RightNode->Key))#4.2.2.1.3.3#If item is between the middle-node key and the right node key, follow the middle-right pointer.
+						Ptr = Ptr->mrchild;#4.2.2.1.3.3.1#4.2.2.1|4.2.2.1.3|If item is between the middle-node key and the right node key, follow the middle-right pointer.
+					@
+					$~else#4.2.2.1.3.4#If item is greater than rightmost node key, follow the right pointer.
+						Ptr = Ptr->rchild;#4.2.2.1.3.4.1#4.2.2.1|4.2.2.1.3|If item is greater than rightmost node key, follow the right pointer.
+					@
+				@
+			@
+		@
+	@
+	}#4.2.3
+	return NOTFOUND#4.3#If no match is found along the search path, then the item is not in the tree.
+@
+}
+@

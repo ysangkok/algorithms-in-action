@@ -4,12 +4,11 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="generator" content="HTML Tidy for Linux/x86 (vers 25 March 2009), see www.w3.org" />
-    <meta http-equiv="Content-Style-Type" content="text/css" />
     <title></title>
   </head>
   <body>
     <div id="appletdiv"></div>
-    <script language="javascript" type="text/javascript">
+    <script type="text/javascript">
 //<![CDATA[
 function applettoload() {
 return decodeURIComponent(window.location.search.substring(1));
@@ -57,73 +56,35 @@ function getCookie (name)
         userLanguage=getCookie("language");
         if(!userLanguage) userLanguage="en";
 
-        if (userName == null || userLog == null)
-        { 
-        } 
-        else 
+        if (userName !== null && userLog !== null)
         {
                 var d = document.getElementById('appletdiv');
                 
-                var appletTag = document.createElement('applet');
-                appletTag.setAttribute('code', 'AppletLauncher.class');
-                appletTag.setAttribute('archive', 'aia.jar?language='+userLanguage);
-                appletTag.setAttribute('width', 0);
-                appletTag.setAttribute('height', 0);
-                var p = document.createElement('param')
-                p.setAttribute('name', 'CUSER');
-                p.setAttribute('value', userName);
-                appletTag.appendChild(p);
-                
+                var appletTag = document.createElement('object');
+                appletTag.setAttribute("type", "application/x-java-applet");
+                appletTag.setAttribute('width', "100");
+                appletTag.setAttribute('height', "100");
 
-                p = document.createElement('param');
-                p.setAttribute('name', 'appletToLoad');
-                p.setAttribute('value', applettoload() + 'Applet.class');
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'language');
-                p.setAttribute('value', userLanguage);
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'CID');
-                p.setAttribute('value', userID);
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'ULOG');
-                p.setAttribute('value', userLog);
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'NOLOG');
-                p.setAttribute('value', nolog);
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'NOTRACE');
-                p.setAttribute('value', notrace);
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'NOSTEP');
-                p.setAttribute('value', 'false');
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'NOBACK');
-                p.setAttribute('value', 'false');
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'NOEXP');
-                p.setAttribute('value', 'false');
-                appletTag.appendChild(p);
-                
-                p = document.createElement('param');
-                p.setAttribute('name', 'COOKIES');
-                p.setAttribute('value', 'true');
-                appletTag.appendChild(p);
+                [["code","AppletLauncher.class"],
+                 ['CUSER', userName],
+                 ['archive', 'aia.jar?language='+userLanguage],
+               ['appletToLoad', applettoload() + 'Applet.class'],
+               [ 'language', userLanguage],
+               [ 'CID', userID],
+               [ 'ULOG', userLog],
+               [ 'NOLOG', nolog],
+               [ 'NOTRACE', notrace],
+               [ 'NOSTEP', 'false'],
+               [ 'NOBACK', 'false'],
+               [ 'NOEXP', 'false'],
+               [ 'COOKIES', 'true']
+                ].forEach(function(i) {
+                    var p = document.createElement('param');
+                    p.setAttribute('name', i[0]);
+                    if (typeof i[1] === "undefined") throw new Error(String(i[0]) + " undefined");
+                    p.setAttribute('value', i[1]);
+                    appletTag.appendChild(p);
+                });
                 
                 d.appendChild(appletTag);               
                 
