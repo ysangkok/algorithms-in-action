@@ -1,0 +1,186 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Select language</title>
+<style type="text/css">
+img { padding: 3px; }
+#langlist td:hover { background-color: #efefef; cursor: pointer; }
+</style>
+    <script type="text/javascript">
+//<![CDATA[
+var languages= new Array();
+languages['en'] = "English";
+languages['it'] = "Italian";
+
+function loadLangMenu(child)
+{
+	var htmltext = "<tr onclick=\"selectLang('LANG_CODE')\"><td><img src=\"flags/LANG_CODE.gif\" />LANG_NAME</td></tr>";
+	for(var i in languages)
+	{
+        var tr = document.createElement("tr");
+        tr.setAttribute("onclick", "selectLang('" + i + "')");
+        var td, img;
+        tr.appendChild(td = document.createElement("td"));
+        td.appendChild(img = document.createElement("img"));
+        img.setAttribute("src", "flags/" + i + ".gif");
+        td.appendChild(document.createTextNode(languages[i]));
+        child.appendChild(tr);
+	}
+}
+
+function displayLangMenu()
+{
+	langListElement = document.getElementById("langlist").style;
+	langListElement.visibility=(langListElement.visibility=="hidden")?"visible":"hidden";
+}
+	
+function selectLang(lang)
+{
+	//sets cookie
+	setLangCookie(lang);
+	//update html display of selected lang
+	updateSelectedLang(lang);
+	//close menudisplay
+	document.getElementById("langlist").style.visibility="hidden";
+}	
+function updateSelectedLang(lang)
+{
+	document.getElementById("langname").textContent=languages[lang];
+	document.getElementById("langflag").src="flags/"+lang+".gif";
+}
+	
+function setLangCookie(lang) {
+  var cookieval = "language="+escape(lang);
+  var expire = new Date();
+  //1 month expiry date for language cookie
+  expire.setTime((new Date()).getTime() + 3600000*24*31);
+  cookieval = cookieval + " ;path=/ ;expires="+expire.toGMTString();
+  document.cookie = cookieval;
+}
+
+function getLangCookie() {
+  return getCookie('language');
+}
+
+function getDefaultBrowserLang()
+{
+	var lang='en';
+	
+	var userLang = (navigator.language) ? navigator.language : navigator.userLanguage; 
+	if(userLang)
+	{
+		var sep = userLang.search(/\W+/);
+		//grabs only the language portion, discard the country/variant
+		lang = (sep!=-1)?userLang.substring(0,sep):userLang;
+	}	
+	return lang.toLowerCase();
+}
+	
+function initDefaultLang()
+{
+	document.cookie = "nolog=true ;path=/";
+	document.cookie = "notrace=true ;path=/";
+
+	//check if language cookie present
+	var cookieLang = getLangCookie();
+	if(!cookieLang)
+	{
+		cookieLang = getDefaultBrowserLang();
+		if (typeof languages[cookieLang] === "undefined") cookieLang = "en";
+		selectLang(cookieLang);	
+	}
+	else
+	{
+		updateSelectedLang(cookieLang);
+	}
+}		
+//copy from previous code 
+function getCookieVal (offset)
+{ 
+	var endstr = document.cookie.indexOf (";", offset);
+	if (endstr == -1)
+	{
+		 endstr = document.cookie.length; 
+	}
+	return unescape (document.cookie.substring(offset, endstr));
+}
+function getCookie (name)
+{ 
+	var arg = name + "=";
+	var alen = arg.length;
+	var clen = document.cookie.length;
+	var i = 0;
+	while (i < clen)
+	{ 
+		var j = i + alen;
+		if (document.cookie.substring (i,j) == arg)
+		{ 
+			return getCookieVal (j); 
+		}
+		i = document.cookie.indexOf (" ", i) + 1;
+		if (i == 0) break;
+	} 
+	return null;
+}	
+
+function redir()
+{
+	//sets necessary cookie
+	document.cookie = "user=demo ;path=/";
+	document.cookie = "ulog=false ;path=/";
+	
+	//fake redirect according to user input
+	window.location = "demoindex.xhtml";
+}
+
+	
+//]]>
+</script>
+  </head>
+  <body onload="initDefaultLang()">
+<!-- image is 90% of frame height to accomodate different screen resolutions -->
+    <div style="margin-left:auto;margin-right:auto;width:50em">
+      <table>
+        <tr>
+          <td>
+            <img src="logo/logobright.jpg" style="width:15em" alt="AIA logo" />
+          </td>
+          <td style="vertical-align:middle">
+<!-- For vertical alignment, however this may not be good for all fonts -->
+<!-- Mikey original had 2 * <br>, comic font large -->
+            <div class="ser" style="font-size:2.7em">
+              <b> Algorithms In Action </b>
+            </div>
+            <form action="" method="post">
+              <table>
+                <tr>
+                  <td colspan="2"></td>
+                </tr>
+                <tr>
+                  <td valign="top">Language preference:</td>
+                  <td>
+                    <span onclick="displayLangMenu()" style="cursor:pointer"><img alt="Flag icon" id="langflag" src="flags/en.gif" /><span id="langname">English</span> <span style="font-size:smaller"><a href="javascript:displayLangMenu()" onclick="displayLangMenu()">change</a></span></span>
+                    <div id="langlist" style="visibility:hidden">
+                        <table id="langtable"></table>
+                    </div>
+                    <script type="text/javascript">loadLangMenu(document.getElementById("langtable"))</script>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2"></td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <input type="button" value="Enter" onclick="redir()" />
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

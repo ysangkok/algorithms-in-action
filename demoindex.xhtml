@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title> Welcome to Algorithms In Action </title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <script type="text/javascript">
+//<![CDATA[
+// This is an automatically generated file, do not edit
+function getCookieVal (offset)
+{ var endstr = document.cookie.indexOf (";", offset);
+if (endstr == -1)
+{ endstr = document.cookie.length; }
+return unescape (document.cookie.substring(offset, endstr));
+}
+function getCookie (name)
+{ var arg = name + "=";
+var alen = arg.length;
+var clen = document.cookie.length;
+var i = 0;
+while (i < clen)
+{ var j = i + alen;
+if (document.cookie.substring (i,j) == arg)
+{ return getCookieVal (j); }
+i = document.cookie.indexOf (" ", i) + 1;
+if (i == 0) break;
+} return null;}
+userName = getCookie ("user");
+if (userName == null)
+{
+alert("AiA requires Java, JavaScript and COOKIES enabled to work. Please enable these features and retry.");
+}
+function getHTMLDir()
+{
+	var htmldir = 'lang_en';
+	var lang = getCookie('language');
+	if(lang)
+	{
+	  //src will be replaced by cgi script as the absolute directory.
+	  src="";
+		htmldir = src+'lang_'+lang;
+	}
+	return htmldir;
+}
+
+function setFrames(){
+var htmldir = getHTMLDir();
+frames['title'].location = htmldir+"/"+"title.xhtml";
+frames['content'].location = htmldir+"/"+"studentmain.xhtml"
+frames['bottom'].location = htmldir+"/"+"studentbottom.xhtml"
+}
+//]]>
+</script>
+  </head>
+  <frameset cols="1%,25%,*">
+    <frame src="blank.xhtml" scrolling="no" noresize="noresize" name="blank" id="blank" />
+    <frame src="demobar.xhtml" name="navi" id="navi" />
+    <frameset rows="40%,50%,10%" onload="setFrames()">
+      <frame name="title" scrolling="no" id="title" />
+      <frame name="content" id="content" />
+      <frame name="bottom" id="bottom" />
+    </frameset>
+    <noframes>
+      <body> Sorry, this page uses frames, which your browser does not support. You can access our <a href="http://ww2.cs.mu.oz.au/aia/front.xhtml"> front page </a> and <a href="http://ww2.cs.mu.oz.au/aia/bar.xhtml"> navigation menu </a> via these links.</body>
+    </noframes>
+  </frameset>
+</html>
