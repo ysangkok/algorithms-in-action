@@ -14,8 +14,10 @@ var languages= new Array();
 languages['en'] = "English";
 languages['it'] = "Italian";
 
-function loadLangMenu(child)
+function loadLangMenu(elem)
 {
+    var child = document.createElement("table");
+    elem.appendChild(child);
 	var htmltext = "<tr onclick=\"selectLang('LANG_CODE')\"><td><img src=\"flags/LANG_CODE.gif\" />LANG_NAME</td></tr>";
 	for(var i in languages)
 	{
@@ -163,9 +165,8 @@ function redir()
                   <td>
                     <span onclick="displayLangMenu()" style="cursor:pointer"><img alt="Flag icon" id="langflag" src="flags/en.gif" /><span id="langname">English</span> <span style="font-size:smaller"><a href="javascript:displayLangMenu()" onclick="displayLangMenu()">change</a></span></span>
                     <div id="langlist" style="visibility:hidden">
-                        <table id="langtable"></table>
                     </div>
-                    <script type="text/javascript">loadLangMenu(document.getElementById("langtable"))</script>
+                    <script type="text/javascript">loadLangMenu(document.getElementById("langlist"))</script>
                   </td>
                 </tr>
                 <tr>
