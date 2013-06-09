@@ -1,0 +1,16 @@
+import com.cim.AIA.*;
+
+public class InsertionSortThread extends AlgorithmThread
+{
+    public InsertionSortThread(final Copyable data, final AlgorithmWindow algorithmWindow) {
+        super(data, algorithmWindow);
+    }
+    
+    public Algorithm createAlgorithm(final Copyable data) {
+        return new InsertionSort(this, data.copy());
+    }
+    
+    public AlgorithmWindow getWindow() {
+        return super.getAlgorithmWindow();
+    }
+}

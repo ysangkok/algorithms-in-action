@@ -1,0 +1,74 @@
+class DigitalSearchTree$DigitalTree {
+    DigitalSearchTree$DigitalTree leftChild;
+    DigitalSearchTree$DigitalTree rightChild;
+    int data;
+    com.cim.AIA.Node node;
+    com.cim.AIA.Node leftNode;
+    com.cim.AIA.Node rightNode;
+    final DigitalSearchTree this$0;
+    
+    DigitalSearchTree$DigitalTree(DigitalSearchTree a, int i, int i0)
+    {
+        this.this$0 = a;
+        super();
+        this.rightChild = null;
+        this.leftChild = null;
+        this.data = i;
+        Integer a0 = new Integer(i);
+        com.cim.AIA.Node a1 = new com.cim.AIA.Node((Object)a0, i0);
+        this.node = a1;
+        com.cim.AIA.Node a2 = this.node;
+        java.awt.Color a3 = DigitalSearchTree.access$000();
+        a2.setBackgroundColor(a3);
+        com.cim.AIA.Node a4 = this.node;
+        java.awt.Color a5 = DigitalSearchTree.access$100();
+        a4.setTextColor(a5);
+        com.cim.AIA.Node a6 = this.node;
+        a6.setMarkersBelowValue(false);
+        com.cim.AIA.Node a7 = this.node;
+        a7.setAdditionalMarkerSpacing(-2);
+        com.cim.AIA.Node a8 = this.node;
+        java.awt.Color a9 = DigitalSearchTree.access$200();
+        a8.setRingColor(a9);
+        com.cim.AIA.Node a10 = new com.cim.AIA.Node((Object)"", 0);
+        this.leftNode = a10;
+        com.cim.AIA.Node a11 = this.leftNode;
+        java.awt.Color a12 = DigitalSearchTree.access$300();
+        a11.setBackgroundColor(a12);
+        com.cim.AIA.Node a13 = this.leftNode;
+        java.awt.Color a14 = DigitalSearchTree.access$100();
+        a13.setTextColor(a14);
+        com.cim.AIA.Node a15 = this.leftNode;
+        com.cim.AIA.Node a16 = this.node;
+        int i1 = a16.getWidth();
+        int i2 = i1 / 2;
+        a15.setWidth(i2);
+        com.cim.AIA.Node a17 = this.leftNode;
+        com.cim.AIA.Node a18 = this.node;
+        int i3 = a18.getHeight();
+        int i4 = i3 / 2;
+        a17.setHeight(i4);
+        com.cim.AIA.Node a19 = this.leftNode;
+        a19.setIsVisible(true);
+        com.cim.AIA.Node a20 = new com.cim.AIA.Node((Object)"", 0);
+        this.rightNode = a20;
+        com.cim.AIA.Node a21 = this.rightNode;
+        java.awt.Color a22 = DigitalSearchTree.access$300();
+        a21.setBackgroundColor(a22);
+        com.cim.AIA.Node a23 = this.rightNode;
+        java.awt.Color a24 = DigitalSearchTree.access$100();
+        a23.setTextColor(a24);
+        com.cim.AIA.Node a25 = this.rightNode;
+        com.cim.AIA.Node a26 = this.node;
+        int i5 = a26.getWidth();
+        int i6 = i5 / 2;
+        a25.setWidth(i6);
+        com.cim.AIA.Node a27 = this.rightNode;
+        com.cim.AIA.Node a28 = this.node;
+        int i7 = a28.getHeight();
+        int i8 = i7 / 2;
+        a27.setHeight(i8);
+        com.cim.AIA.Node a29 = this.rightNode;
+        a29.setIsVisible(true);
+    }
+}

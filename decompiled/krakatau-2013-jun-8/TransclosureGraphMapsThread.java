@@ -1,0 +1,20 @@
+public class TransclosureGraphMapsThread extends com.cim.AIA.AlgorithmThread {
+    public TransclosureGraphMapsThread(com.cim.AIA.Copyable a, com.cim.AIA.AlgorithmWindow a0)
+    {
+        super(a, a0);
+    }
+    
+    public com.cim.AIA.Algorithm createAlgorithm(com.cim.AIA.Copyable a)
+    {
+        Object a0 = a;
+        Object a1 = ((com.cim.AIA.Copyable)a0).copy();
+        TransclosureGraphMaps a2 = new TransclosureGraphMaps((com.cim.AIA.AlgorithmThread)this, a1);
+        return a2;
+    }
+    
+    public com.cim.AIA.Algorithm getGraphMapsAlgorithm()
+    {
+        com.cim.AIA.Algorithm a = this.getAlgorithm();
+        return a;
+    }
+}

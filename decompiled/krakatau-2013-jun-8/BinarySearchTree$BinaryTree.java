@@ -1,0 +1,70 @@
+class BinarySearchTree$BinaryTree {
+    BinarySearchTree$BinaryTree leftChild;
+    BinarySearchTree$BinaryTree rightChild;
+    int data;
+    com.cim.AIA.Node node;
+    com.cim.AIA.Node leftNode;
+    com.cim.AIA.Node rightNode;
+    final BinarySearchTree this$0;
+    
+    BinarySearchTree$BinaryTree(BinarySearchTree a, int i, int i0)
+    {
+        this.this$0 = a;
+        super();
+        this.rightChild = null;
+        this.leftChild = null;
+        this.data = i;
+        Integer a0 = new Integer(i);
+        com.cim.AIA.Node a1 = new com.cim.AIA.Node((Object)a0, i0);
+        this.node = a1;
+        com.cim.AIA.Node a2 = this.node;
+        java.awt.Color a3 = BinarySearchTree.access$000();
+        a2.setBackgroundColor(a3);
+        com.cim.AIA.Node a4 = this.node;
+        java.awt.Color a5 = BinarySearchTree.access$100();
+        a4.setTextColor(a5);
+        com.cim.AIA.Node a6 = this.node;
+        java.awt.Color a7 = BinarySearchTree.access$200();
+        a6.setRingColor(a7);
+        com.cim.AIA.Node a8 = new com.cim.AIA.Node((Object)"", 0);
+        this.leftNode = a8;
+        com.cim.AIA.Node a9 = this.leftNode;
+        java.awt.Color a10 = BinarySearchTree.access$300();
+        a9.setBackgroundColor(a10);
+        com.cim.AIA.Node a11 = this.leftNode;
+        java.awt.Color a12 = BinarySearchTree.access$100();
+        a11.setTextColor(a12);
+        com.cim.AIA.Node a13 = this.leftNode;
+        com.cim.AIA.Node a14 = this.node;
+        int i1 = a14.getWidth();
+        int i2 = i1 / 2;
+        a13.setWidth(i2);
+        com.cim.AIA.Node a15 = this.leftNode;
+        com.cim.AIA.Node a16 = this.node;
+        int i3 = a16.getHeight();
+        int i4 = i3 / 2;
+        a15.setHeight(i4);
+        com.cim.AIA.Node a17 = this.leftNode;
+        a17.setIsVisible(true);
+        com.cim.AIA.Node a18 = new com.cim.AIA.Node((Object)"", 0);
+        this.rightNode = a18;
+        com.cim.AIA.Node a19 = this.rightNode;
+        java.awt.Color a20 = BinarySearchTree.access$300();
+        a19.setBackgroundColor(a20);
+        com.cim.AIA.Node a21 = this.rightNode;
+        java.awt.Color a22 = BinarySearchTree.access$100();
+        a21.setTextColor(a22);
+        com.cim.AIA.Node a23 = this.rightNode;
+        com.cim.AIA.Node a24 = this.node;
+        int i5 = a24.getWidth();
+        int i6 = i5 / 2;
+        a23.setWidth(i6);
+        com.cim.AIA.Node a25 = this.rightNode;
+        com.cim.AIA.Node a26 = this.node;
+        int i7 = a26.getHeight();
+        int i8 = i7 / 2;
+        a25.setHeight(i8);
+        com.cim.AIA.Node a27 = this.rightNode;
+        a27.setIsVisible(true);
+    }
+}
